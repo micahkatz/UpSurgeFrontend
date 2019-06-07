@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "upsurgeamplify-dev-20190606162025-authRole",
+            "UnauthRoleArn": "arn:aws:iam::091948242025:role/upsurgeamplify-dev-20190606162025-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::091948242025:role/upsurgeamplify-dev-20190606162025-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "upsurgeamplify-dev-20190606162025-deployment",
+            "UnauthRoleName": "upsurgeamplify-dev-20190606162025-unauthRole",
+            "StackName": "upsurgeamplify-dev-20190606162025",
+            "StackId": "arn:aws:cloudformation:us-east-1:091948242025:stack/upsurgeamplify-dev-20190606162025/e75011c0-88a0-11e9-88c3-0e17762a99e0"
+        },
+        "categories": {
+            "auth": {
+                "upsurgeamplifyc1559f2c": {}
+            }
+        }
+    }
+}

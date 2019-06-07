@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/items",
+            "lambdaFunction": "upsurgeamplify41db60b7",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "apic33c653d",
+    "apiName": "apic33c653d",
+    "functionArns": [
+        {
+            "lambdaFunction": "upsurgeamplify41db60b7"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "upsurgeamplify-dev-20190606162025-authRole",
+        "unAuthRoleName": "upsurgeamplify-dev-20190606162025-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "upsurgeamplify41db60b7",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

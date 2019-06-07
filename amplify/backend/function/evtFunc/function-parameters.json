@@ -1,0 +1,15 @@
+{
+    "permissions": {
+        "storage": {
+            "Users": [
+                "update"
+            ],
+            "Events": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}
