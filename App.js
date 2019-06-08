@@ -15,13 +15,13 @@ import { withAuthenticator } from 'aws-amplify-react-native';
 import awsconfig from './aws-exports';
 import ImagePicker from 'react-native-image-crop-picker';
 Amplify.configure(awsconfig);
-
+import RNFetchBlob from 'rn-fetch-blob'
 apiName = 'evtApi'
 apiPath = '/evtApi'
 
 class App extends Component<Props> {
 
-  state = { apiResponse: null, jwt: null };
+  state = { apiResponse: null, jwt: null, startKey: null };
 
   componentDidMount() {
     Auth.currentSession()
@@ -46,7 +46,7 @@ class App extends Component<Props> {
     let config = {
       body: {
         eid: '1234679',
-        title: 'example text',
+        title: 'example',
         desc: 'example text',
         ts: Math.round((new Date()).getTime() / 1000)
       }
@@ -80,37 +80,56 @@ class App extends Component<Props> {
       console.log(e);
     }
   }
-  async getItemList() {
+  async scanItems() {
     try {
-      const apiResponse = await API.get(apiName, apiPath)
+      var apiResponse
+      if(this.state.startKey){
+        apiResponse = await API.get(apiName, apiPath + '/feed/' + this.state.startKey)
+      } else {
+        apiResponse = await API.get(apiName, apiPath + '/feed')
+      }
       console.log('response from saving note: ' + JSON.stringify(apiResponse));
-      this.setState({apiResponse});
+      if(apiResponse.data.LastEvaluatedKey){
+        this.setState({
+          apiResponse: 'here is the last evaluated: ' + apiResponse.data.LastEvaluatedKey.eid + 'Response :'+ JSON.stringify(apiResponse),
+          startKey: apiResponse.data.LastEvaluatedKey.eid
+        });
+      } else {
+        this.setState({apiResponse, startKey: null});
+      }
     } catch (e) {
       console.log(e);
     }
   }
 
   async uploadImg() {
+    // Storage.put('123456.jpg', 'hello')
+    // .then (result => {
+    //   this.setState({apiResponse: 'THE IMAGE HAS BEEN UPLOADED!!'});
+    //   console.log(result)
+    // }) // {key: "test.txt"}
+    // .catch(err => {
+    //   this.setState({apiResponse: err});
+    //   console.log(err)
+    // });
     ImagePicker.openPicker({
       width: 300,
       height: 400,
-      cropping: true
+      cropping: true,
+      forceJpg: true,
+      includeBase64: true
     }).then(image => {
 
-      imgData = {
-        uri: image.path,
-        type: image.mime,
-        name: image.filename
-      }
-
-      console.log('THE IMAGE HAS BEEN PICKED');
-      Storage.put(image.filename, imgData)
+      // console.log('THE IMAGE HAS BEEN PICKED', image.path);
+      Storage.put(image.filename, image.data, {
+        contentType: image.mime
+      })
       .then (result => {
-        console.log('THE IMAGE HAS BEEN UPLOADED!!');
+        this.setState({apiResponse: 'THE IMAGE HAS BEEN UPLOADED!!'});
         console.log(result)
       }) // {key: "test.txt"}
       .catch(err => {
-        console.log('THERE WAS AN ERROR');
+        this.setState({apiResponse: 'Error'+err});
         console.log(err)
       });
     });
@@ -123,6 +142,7 @@ class App extends Component<Props> {
         <Button title='PUT Request' onPress={this.insertItem.bind(this)} />
         <Button title='DEL Request' onPress={this.delItem.bind(this)} />
         <Button title='GET Request' onPress={this.getItem.bind(this)} />
+        <Button title='SCAN Request' onPress={this.scanItems.bind(this)} />
         <Button title='Upload IMG' onPress={this.uploadImg.bind(this)} />
         <Text>Response: {this.state.apiResponse && JSON.stringify(this.state.apiResponse)}</Text>
       </View>

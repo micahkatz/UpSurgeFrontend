@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    implementation project(':rn-fetch-blob')
     implementation project(':react-native-image-crop-picker')
     implementation project(':amazon-cognito-identity-js')
     implementation project(':react-native-vector-icons')
