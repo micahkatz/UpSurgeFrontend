@@ -14,12 +14,12 @@
 			"service": "DynamoDB",
 			"providerPlugin": "awscloudformation"
 		},
-		"Submissions": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
-		},
 		"upsurgeMediaStore": {
 			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		},
+		"Submissions": {
+			"service": "DynamoDB",
 			"providerPlugin": "awscloudformation"
 		}
 	},

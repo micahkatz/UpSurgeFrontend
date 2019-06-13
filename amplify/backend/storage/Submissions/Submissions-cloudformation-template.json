@@ -12,13 +12,6 @@
             "Type": "String"
         },
         
-        "sortKeyName": {
-            "Type": "String"
-        },
-        "sortKeyType": {
-            "Type": "String"
-        },
-        
         "tableName": {
             "Type": "String"
         }
@@ -42,11 +35,6 @@
                   {
                       "AttributeName": "sid",
                       "AttributeType": "S"
-                  }  , 
-                  
-                  {
-                      "AttributeName": "ts",
-                      "AttributeType": "S"
                   } 
                   
                 ],
@@ -55,11 +43,6 @@
                   {
                     "AttributeName": "sid",
                     "KeyType": "HASH"
-                  }  , 
-                  
-                  {
-                    "AttributeName": "ts",
-                    "KeyType": "RANGE"
                   } 
                   
                 ],
@@ -116,17 +99,6 @@
         "PartitionKeyType": {
             "Value": {
                 "Ref": "partitionKeyType"
-            }
-        },
-        
-        "SortKeyName": {
-            "Value": {
-                "Ref": "sortKeyName"
-            }
-        },
-        "SortKeyType": {
-            "Value": {
-                "Ref": "sortKeyType"
             }
         },
         

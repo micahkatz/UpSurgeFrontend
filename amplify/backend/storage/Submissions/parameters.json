@@ -1,7 +1,5 @@
 {
     "tableName": "Submissions",
     "partitionKeyName": "sid",
-    "partitionKeyType": "S",
-    "sortKeyName": "ts",
-    "sortKeyType": "S"
+    "partitionKeyType": "S"
 }
