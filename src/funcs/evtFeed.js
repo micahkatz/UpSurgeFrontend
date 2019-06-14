@@ -1,6 +1,6 @@
 import {API} from 'aws-amplify'; // interacts with the AWS service using the AWS Amplify SDK
-const apiName = 'evtApi';
-const apiPath = '/evtApi';
+const apiName = 'EvtsApi';
+const apiPath = '/e';
 import {GetUID} from './auth'
 
 exports.FetchEvts = async (LastEvaluatedKey) => {
@@ -39,9 +39,9 @@ exports.GetCatFeed = async (LastEvaluatedKey) => {
     let uid = await GetUID()
     if(LastEvaluatedKey){
       // apiResponse = await API.get(apiName, apiPath + '/feed/' + LastEvaluatedKey, config)
-      apiResponse = await API.get(apiName, apiPath + '/evtFeed/SPORTS/' + LastEvaluatedKey)
+      apiResponse = await API.get(apiName, apiPath + '/evtFeed/cat/SPORTS/' + LastEvaluatedKey)
     } else {
-      apiResponse = await API.get(apiName, apiPath + '/evtFeed/SPORTS')
+      apiResponse = await API.get(apiName, apiPath + '/evtFeed/cat/SPORTS')
     }
     console.log(JSON.stringify(apiResponse))
     newEvents = apiResponse.data.Items
@@ -68,7 +68,7 @@ exports.GetProEvtFeed = async (pid, LastEvaluatedProEvtKey) => {
     let uid = await GetUID()
     if(LastEvaluatedProEvtKey){
       // apiResponse = await API.get(apiName, apiPath + '/feed/' + LastEvaluatedKey, config)
-      apiResponse = await API.get(apiName, apiPath + '/evtFeed/profile/' + uid + '/'+ LastEvaluatedProEvtKey)
+      apiResponse = await API.get(apiName, apiPath + '/evtFeed/profile/' + uid + '/' + LastEvaluatedProEvtKey)
     } else {
       apiResponse = await API.get(apiName, apiPath + '/evtFeed/profile/' + uid)
     }

@@ -6,10 +6,6 @@
 		}
 	},
 	"storage": {
-		"Users": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
-		},
 		"Events": {
 			"service": "DynamoDB",
 			"providerPlugin": "awscloudformation"
@@ -21,32 +17,13 @@
 		"Submissions": {
 			"service": "DynamoDB",
 			"providerPlugin": "awscloudformation"
+		},
+		"Users": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation"
 		}
 	},
 	"function": {
-		"evtFunc": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true,
-			"dependsOn": [
-				{
-					"category": "storage",
-					"resourceName": "Users",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				},
-				{
-					"category": "storage",
-					"resourceName": "Events",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
-		},
 		"upsurgeamplify41db60b7": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
@@ -61,16 +38,31 @@
 					]
 				}
 			]
+		},
+		"SubApiFunc": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		},
+		"UserApiFunc": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		},
+		"EvtsApiFunc": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
 		}
 	},
 	"api": {
-		"evtApi": {
+		"SubApi": {
 			"service": "API Gateway",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "evtFunc",
+					"resourceName": "SubApiFunc",
 					"attributes": [
 						"Name",
 						"Arn"
@@ -78,13 +70,27 @@
 				}
 			]
 		},
-		"apic33c653d": {
+		"UserApi": {
 			"service": "API Gateway",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "upsurgeamplify41db60b7",
+					"resourceName": "UserApiFunc",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			]
+		},
+		"EvtsApi": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "EvtsApiFunc",
 					"attributes": [
 						"Name",
 						"Arn"

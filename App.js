@@ -16,8 +16,8 @@ import awsconfig from './aws-exports';
 import ImagePicker from 'react-native-image-crop-picker';
 Amplify.configure(awsconfig);
 import RNFetchBlob from 'rn-fetch-blob'
-apiName = 'evtApi'
-apiPath = '/evtApi'
+apiName = 'EvtsApi'
+apiPath = '/e'
 const uuidv4 = require('uuid/v4');
 import {NewEvt} from './src/funcs/NewEvt'
 import {NewSub} from './src/funcs/NewSub'
@@ -61,8 +61,8 @@ class App extends Component<Props> {
   async delItem() {
     try {
       //deletes the item with a certain id
-      const apiResponse = await API.del(apiName, apiPath + '/object/123467')
-      console.log('response from saving note: ' + JSON.stringify(apiResponse));
+      const apiResponse = await API.del(apiName, apiPath + '/1485953d-7736-4434-9a73-489930a3ebfa')
+      console.log('response from deleting evt: ' + JSON.stringify(apiResponse));
       this.setState({apiResponse});
     } catch (e) {
       console.log(e);
@@ -70,7 +70,7 @@ class App extends Component<Props> {
   }
   async getItem() {
     try {
-      const apiResponse = await API.get(apiName, apiPath + '/object/123467')
+      const apiResponse = await API.get('UserApi', '/u')
       console.log('response from saving note: ' + JSON.stringify(apiResponse));
       this.setState({apiResponse});
     } catch (e) {
@@ -183,10 +183,11 @@ class App extends Component<Props> {
         <Button title='*Get Event Feed' onPress={this.scanItems.bind(this)} />
         <Button title='*ADD FRIEND' onPress={() => AddFriend()} />
         <Button title='*Get SPORTS FEED' onPress={this.fetchCatFeed.bind(this)} />
-        <Button title='Get Profile Evt FEED' onPress={this.fetchProfileEvtFeed.bind(this)} />
+        <Button title='*Get Profile Evt FEED' onPress={this.fetchProfileEvtFeed.bind(this)} />
         <Button title='*Get Profile' onPress={() => GetProfile('eyJraWQiOi')} />
         <Button title='*Get Evt Submissions' onPress={this.fetchEvtSubFeed.bind(this)} />
         <Button title='*Edit Profile' onPress={() => EditProfile()} />
+        <Button title='Zap Sub' onPress={() => ZapSub('')} />
         <Button title='Upload IMG' onPress={this.uploadImg.bind(this)} />
         <Text>Response: {this.state.apiResponse && JSON.stringify(this.state.apiResponse)}</Text>
         {

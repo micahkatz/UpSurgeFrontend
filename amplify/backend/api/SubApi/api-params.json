@@ -1,22 +1,29 @@
 {
     "paths": [
         {
-            "name": "/items",
-            "lambdaFunction": "upsurgeamplify41db60b7",
+            "name": "/s",
+            "lambdaFunction": "SubApiFunc",
             "privacy": {
-                "open": true
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
             }
         }
     ],
-    "resourceName": "apic33c653d",
-    "apiName": "apic33c653d",
+    "resourceName": "SubApi",
+    "apiName": "SubApi",
     "functionArns": [
         {
-            "lambdaFunction": "upsurgeamplify41db60b7"
+            "lambdaFunction": "SubApiFunc"
         }
     ],
     "privacy": {
-        "auth": 0,
+        "auth": 1,
         "unauth": 0,
         "authRoleName": "upsurgeamplify-dev-20190606162025-authRole",
         "unAuthRoleName": "upsurgeamplify-dev-20190606162025-unauthRole"
@@ -24,7 +31,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "upsurgeamplify41db60b7",
+            "resourceName": "SubApiFunc",
             "attributes": [
                 "Name",
                 "Arn"

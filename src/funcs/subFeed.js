@@ -1,6 +1,6 @@
 import {API} from 'aws-amplify'; // interacts with the AWS service using the AWS Amplify SDK
-const apiName = 'evtApi';
-const apiPath = '/evtApi';
+const apiName = 'SubApi';
+const apiPath = '/s';
 
 exports.GetEvtSubs = async (eid, LastEvaluatedEvtSubKey) => {
   try {

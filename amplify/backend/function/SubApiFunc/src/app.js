@@ -7,36 +7,11 @@ See the License for the specific language governing permissions and limitations 
 */
 
 
-/* Amplify Params - DO NOT EDIT
-You can access the following resource attributes as environment variables from your Lambda function
-var environment = process.env.ENV
-var region = process.env.REGION
-var storageUsersName = process.env.STORAGE_USERS_NAME
-var storageUsersArn = process.env.STORAGE_USERS_ARN
-var storageEventsName = process.env.STORAGE_EVENTS_NAME
-var storageEventsArn = process.env.STORAGE_EVENTS_ARN
 
-Amplify Params - DO NOT EDIT */
-const AWS = require('aws-sdk')
 
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
-
-
-AWS.config.update({ region: process.env.TABLE_REGION });
-
-const dynamodb = new AWS.DynamoDB.DocumentClient();
-const userIdPresent = false; // TODO: update in case is required to use that definition
-const partitionKeyName = "eid";
-const partitionKeyType = "S";
-const sortKeyName = "";
-const sortKeyType = "";
-const hasSortKey = sortKeyName !== "";
-const path = "/evtApi";
-const UNAUTH = 'UNAUTH';
-const hashKeyPath = '/:' + partitionKeyName;
-const sortKeyPath = hasSortKey ? '/:' + sortKeyName : '';
 
 // declare a new express app
 var app = express()
@@ -50,25 +25,17 @@ app.use(function(req, res, next) {
   next()
 });
 
-// convert url string param to expected Type
-const convertUrlType = (param, type) => {
-  switch(type) {
-    case "N":
-      return Number.parseInt(param);
-    default:
-      return param;
-  }
-}
+
 /**********************
  * Example get method *
  **********************/
 
-app.get('/evtApi', function(req, res) {
+app.get('/s', function(req, res) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});
 });
 
-app.get('/evtApi/*', function(req, res) {
+app.get('/s/*', function(req, res) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});
 });
@@ -77,12 +44,12 @@ app.get('/evtApi/*', function(req, res) {
 * Example post method *
 ****************************/
 
-app.post('/evtApi', function(req, res) {
+app.post('/s', function(req, res) {
   // Add your code here
   res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 
-app.post('/evtApi/*', function(req, res) {
+app.post('/s/*', function(req, res) {
   // Add your code here
   res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
@@ -90,31 +57,13 @@ app.post('/evtApi/*', function(req, res) {
 /****************************
 * Example post method *
 ****************************/
-/************************************
-* HTTP put method for insert object *
-*************************************/
 
-app.put('/evtApi', function(req, res) {
-
-  if (userIdPresent) {
-    req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-  }
-
-  let putItemParams = {
-    TableName: 'Events',
-    Item: req.body
-  }
-  dynamodb.put(putItemParams, (err, data) => {
-    if(err) {
-      res.statusCode = 500;
-      res.json({error: err, url: req.url, body: req.body});
-    } else{
-      res.json({success: 'put call succeed!', url: req.url, data: data})
-    }
-  });
+app.put('/s', function(req, res) {
+  // Add your code here
+  res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
 
-app.put('/evtApi/*', function(req, res) {
+app.put('/s/*', function(req, res) {
   // Add your code here
   res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
@@ -123,12 +72,12 @@ app.put('/evtApi/*', function(req, res) {
 * Example delete method *
 ****************************/
 
-app.delete('/evtApi', function(req, res) {
+app.delete('/s', function(req, res) {
   // Add your code here
   res.json({success: 'delete call succeed!', url: req.url});
 });
 
-app.delete('/evtApi/*', function(req, res) {
+app.delete('/s/*', function(req, res) {
   // Add your code here
   res.json({success: 'delete call succeed!', url: req.url});
 });

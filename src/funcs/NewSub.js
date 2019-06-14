@@ -14,8 +14,8 @@ exports.NewSub = async (eid) => {
     }
   }
 
-  apiName = 'evtApi'
-  apiPath = '/evtApi'
+  apiName = 'SubApi';
+  apiPath = '/s'
 
   // Use the API module to insert the event to the database
   try {

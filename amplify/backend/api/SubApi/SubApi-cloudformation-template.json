@@ -14,15 +14,15 @@
         },
     
     
-          "functionevtFuncName": {
+          "functionSubApiFuncName": {
             "Type": "String",
-            "Default": "functionevtFuncName"
+            "Default": "functionSubApiFuncName"
           },
         
           
-          "functionevtFuncArn": {
+          "functionSubApiFuncArn": {
             "Type": "String",
-            "Default": "functionevtFuncArn"
+            "Default": "functionSubApiFuncArn"
           }
         
           
@@ -41,13 +41,13 @@
     },
     "Resources": {
         
-        "PolicyAPIGWevtApiauth": {
+        "PolicyAPIGWSubApiauth": {
             "DependsOn": [
-              "evtApi"
+              "SubApi"
             ],
             "Type": "AWS::IAM::Policy",
             "Properties": {
-              "PolicyName": "PolicyAPIGWevtApiauth",
+              "PolicyName": "PolicyAPIGWSubApiauth",
               "Roles": [
                 {"Ref": "authRoleName"}
               ],
@@ -77,7 +77,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -90,7 +90,7 @@
                               ]
                             },
                               "/POST",
-                            "/evtApi/*"
+                            "/s/*"
                           ]
                         ]
                       },
@@ -108,7 +108,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -121,7 +121,7 @@
                               ]
                             },
                               "/POST",
-                            "/evtApi"
+                            "/s"
                           ]
                         ]
                       }
@@ -143,7 +143,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -156,7 +156,7 @@
                               ]
                             },
                               "/GET",
-                            "/evtApi/*"
+                            "/s/*"
                           ]
                         ]
                       },
@@ -174,7 +174,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -187,7 +187,7 @@
                               ]
                             },
                               "/GET",
-                            "/evtApi"
+                            "/s"
                           ]
                         ]
                       }
@@ -209,7 +209,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -222,7 +222,7 @@
                               ]
                             },
                               "/PUT",
-                            "/evtApi/*"
+                            "/s/*"
                           ]
                         ]
                       },
@@ -240,7 +240,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -253,7 +253,7 @@
                               ]
                             },
                               "/PUT",
-                            "/evtApi"
+                            "/s"
                           ]
                         ]
                       }
@@ -275,7 +275,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -288,7 +288,7 @@
                               ]
                             },
                               "/PATCH",
-                            "/evtApi/*"
+                            "/s/*"
                           ]
                         ]
                       },
@@ -306,7 +306,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -319,7 +319,7 @@
                               ]
                             },
                               "/PATCH",
-                            "/evtApi"
+                            "/s"
                           ]
                         ]
                       }
@@ -341,7 +341,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -354,7 +354,7 @@
                               ]
                             },
                               "/DELETE",
-                            "/evtApi/*"
+                            "/s/*"
                           ]
                         ]
                       },
@@ -372,7 +372,7 @@
                             },
                             ":",
                             {
-                              "Ref": "evtApi"
+                              "Ref": "SubApi"
                             },
                             "/",
                             {
@@ -385,7 +385,7 @@
                               ]
                             },
                               "/DELETE",
-                            "/evtApi"
+                            "/s"
                           ]
                         ]
                       }
@@ -402,81 +402,16 @@
           },
         
         
-        "PolicyAPIGWevtApiunauth": {
-            "DependsOn": [
-              "evtApi"
-            ],
-            "Type": "AWS::IAM::Policy",
-            "Properties": {
-              "PolicyName": "PolicyAPIGWevtApiunauth",
-              "Roles": [
-                 {"Ref": "unauthRoleName"}
-              ],
-              "PolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
-                  {
-                    "Effect": "Allow",
-                    "Action": [
-                      "execute-api:Invoke"
-                    ],
-                     "Resource": [
-                    
-                    
-                    
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:execute-api:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                              "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                              "Ref": "evtApi"
-                            },
-                            "/",
-                            {
-                              "Fn::If": [
-                                "ShouldNotCreateEnvResources",
-                                "Prod", 
-                                {
-                                  "Ref": "env"
-                                } 
-                              ]
-                            },
-                              "/GET",
-                            "/evtApi/*"
-                          ]
-                        ]
-                      }
-                    
-                    
-                    
-                    
-                    
-                    ]
-                  }
-                ]
-              }
-            }
-          },
-        
-      "evtApi": {
+      "SubApi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "evtApi",
+          "Name": "SubApi",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "evtApi"
+              "title": "SubApi"
             },
             "host": {
                 "Fn::Join": [
@@ -512,7 +447,7 @@
             ],
             "paths": {
               
-              "/evtApi": {
+              "/s": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -604,7 +539,7 @@
                             
                             {
                                 
-                                "Ref": "functionevtFuncArn"
+                                "Ref": "functionSubApiFuncArn"
                             },
                             
                             "/invocations"
@@ -617,7 +552,7 @@
                   }
                 }
               },
-              "/evtApi/{proxy+}": {
+              "/s/{proxy+}": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -709,7 +644,7 @@
                           
                           {
                             
-                            "Ref": "functionevtFuncArn"
+                            "Ref": "functionSubApiFuncArn"
                           },
                           
                           "/invocations"
@@ -766,12 +701,12 @@
                   
         
         
-        "functionevtFuncPermissionevtApi": {
+        "functionSubApiFuncPermissionSubApi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionevtFuncName"
+                        "Ref":  "functionSubApiFuncName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -790,7 +725,7 @@
                             },
                             ":",
                             {
-                                "Ref": "evtApi"
+                                "Ref": "SubApi"
                             },
                             "/*/*/*"
                         ]
@@ -801,7 +736,7 @@
         
         
         
-      "DeploymentAPIGWevtApi": {
+      "DeploymentAPIGWSubApi": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -815,7 +750,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "evtApi"
+            "Ref": "SubApi"
           }
         }
       }
@@ -823,11 +758,11 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "evtApi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "SubApi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "evtApi"
+          "Value": "SubApi"
         }
     }
   }

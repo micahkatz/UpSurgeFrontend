@@ -1,40 +1,37 @@
 {
     "paths": [
         {
-            "name": "/evtApi",
-            "lambdaFunction": "evtFunc",
+            "name": "/e",
+            "lambdaFunction": "EvtsApiFunc",
             "privacy": {
-                "protected": true,
+                "private": true,
                 "auth": [
                     "/POST",
                     "/GET",
                     "/PUT",
                     "/PATCH",
                     "/DELETE"
-                ],
-                "unauth": [
-                    "/GET"
                 ]
             }
         }
     ],
-    "resourceName": "evtApi",
-    "apiName": "evtApi",
+    "resourceName": "EvtsApi",
+    "apiName": "EvtsApi",
     "functionArns": [
         {
-            "lambdaFunction": "evtFunc"
+            "lambdaFunction": "EvtsApiFunc"
         }
     ],
     "privacy": {
         "auth": 1,
-        "unauth": 1,
+        "unauth": 0,
         "authRoleName": "upsurgeamplify-dev-20190606162025-authRole",
         "unAuthRoleName": "upsurgeamplify-dev-20190606162025-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "evtFunc",
+            "resourceName": "EvtsApiFunc",
             "attributes": [
                 "Name",
                 "Arn"

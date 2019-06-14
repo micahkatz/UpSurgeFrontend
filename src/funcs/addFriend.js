@@ -1,6 +1,6 @@
 import {API} from 'aws-amplify'; // interacts with the AWS service using the AWS Amplify SDK
-const apiName = 'evtApi';
-const apiPath = '/evtApi';
+const apiName = 'UserApi';
+const apiPath = '/u';
 import {GetUID} from './auth'
 
 exports.AddFriend = async () => {

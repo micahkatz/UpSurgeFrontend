@@ -1,0 +1,41 @@
+{
+    "paths": [
+        {
+            "name": "/u",
+            "lambdaFunction": "UserApiFunc",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            }
+        }
+    ],
+    "resourceName": "UserApi",
+    "apiName": "UserApi",
+    "functionArns": [
+        {
+            "lambdaFunction": "UserApiFunc"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "upsurgeamplify-dev-20190606162025-authRole",
+        "unAuthRoleName": "upsurgeamplify-dev-20190606162025-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "UserApiFunc",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

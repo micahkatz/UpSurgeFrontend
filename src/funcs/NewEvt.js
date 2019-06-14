@@ -16,8 +16,8 @@ exports.NewEvt = async () => {
     }
   }
 
-  apiName = 'evtApi'
-  apiPath = '/evtApi'
+  apiName = 'EvtsApi';
+  apiPath = '/e'
 
   // Use the API module to insert the event to the database
   try {

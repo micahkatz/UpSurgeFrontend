@@ -1,7 +1,5 @@
 {
     "tableName": "Users",
     "partitionKeyName": "uid",
-    "partitionKeyType": "S",
-    "sortKeyName": "pts",
-    "sortKeyType": "N"
+    "partitionKeyType": "S"
 }
