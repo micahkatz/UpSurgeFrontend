@@ -102,7 +102,7 @@ class Home extends Component {
         keyExtractor = {(item, index) => item.eid}
         renderItem={({item, index}) => {
           return (
-            <ExtEvt eid={item.eid}/>
+            <ExtEvt item={item}/>
           )
         }}
         refreshing={this.state.refreshing}

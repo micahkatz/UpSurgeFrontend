@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import EvtContainer from './EvtContainer'
 import {GLOBALS} from '../globals'
-
+import IntEvt from './IntEvt'
 import {GetIMG} from '../funcs/media'
 class ExtEvt extends Component {
   constructor(props){
@@ -20,7 +20,7 @@ class ExtEvt extends Component {
     this.setUri()
   }
   async setUri(){
-    let imgUri = await GetIMG(this.props.eid + '.jpeg')
+    let imgUri = await GetIMG(this.props.item.eid + '.jpeg')
     this.setState({
       imgUri
     })
@@ -32,6 +32,7 @@ class ExtEvt extends Component {
         style={{
           marginVertical: 10
         }}
+        intEvtChildren={<IntEvt item={this.props.item}/>}
         >
         <Image
           style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.screenWidth, position: 'absolute'}}

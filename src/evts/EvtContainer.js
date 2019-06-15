@@ -2,7 +2,7 @@ import React, { Component,  Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { Animated, TouchableOpacity, View, Image } from 'react-native';
 
-import IntEvt from './IntEvt';
+import IntEvtContainer from './IntEvtContainer';
 import {GLOBALS} from '../globals'
 
 export default class Lightbox extends Component {
@@ -62,6 +62,7 @@ export default class Lightbox extends Component {
     springConfig: this.props.springConfig,
     backgroundColor: this.props.backgroundColor,
     children: this.getContent(),
+    intEvtChildren: this.props.intEvtChildren,
     didOpen: this.props.didOpen,
     willClose: this.props.willClose,
     onClose: this.onClose,
@@ -84,7 +85,7 @@ export default class Lightbox extends Component {
         this.props.didOpen();
         if(this.props.navigator) {
           const route = {
-            component: IntEvt,
+            component: IntEvtContainer,
             passProps: this.getOverlayProps(),
           };
           const routes = this.props.navigator.getCurrentRoutes();
@@ -136,7 +137,7 @@ export default class Lightbox extends Component {
             </View>
           </TouchableOpacity>
         </Animated.View>
-        {this.props.navigator ? false : <IntEvt {...this.getOverlayProps()} />}
+        {this.props.navigator ? false : <IntEvtContainer {...this.getOverlayProps()} />}
       </View>
     );
   }
