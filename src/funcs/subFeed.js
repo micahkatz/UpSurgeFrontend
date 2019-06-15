@@ -30,3 +30,32 @@ exports.GetEvtSubs = async (eid, LastEvaluatedEvtSubKey) => {
     console.log(e);
   }
 }
+
+exports.GetProSubs = async (pid, LastEvaluatedProEvtKey) => {
+  try {
+    var apiResponse
+
+    if(LastEvaluatedProEvtKey){
+      // apiResponse = await API.get(apiName, apiPath + '/feed/' + LastEvaluatedKey, config)
+      apiResponse = await API.get(apiName, apiPath + '/feed/profile/' + pid + '/' + LastEvaluatedProEvtKey)
+    } else {
+      apiResponse = await API.get(apiName, apiPath + '/feed/profile/' + pid)
+    }
+    console.log(JSON.stringify(apiResponse))
+    newEvents = apiResponse.data.Items
+    // checks if there are new items
+    if(newEvents.length > 0){
+      finishedData = {
+        data: newEvents,
+        LastEvaluatedProEvtKey: (apiResponse.data.LastEvaluatedKey.eid) ? apiResponse.data.LastEvaluatedKey.eid : null
+      }
+      // console.log('finishedData: ' + JSON.stringify(finishedData))
+      return finishedData
+    } else {
+      console.log('THERE IS NOT DATA ' + JSON.stringify(apiResponse.data))
+      return null
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}

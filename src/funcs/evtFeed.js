@@ -18,9 +18,17 @@ exports.FetchEvts = async (LastEvaluatedKey) => {
     newEvents = apiResponse.data.Items
     // checks if there are new items
     if(newEvents.length > 0){
-      finishedData = {
-        data: newEvents,
-        LastEvaluatedKey: (apiResponse.data.LastEvaluatedKey.eid) ? apiResponse.data.LastEvaluatedKey.eid : null
+      let finishedData = null
+      if(apiResponse.data.LastEvaluatedKey != null){
+        finishedData = {
+          data: newEvents,
+          LastEvaluatedKey: apiResponse.data.LastEvaluatedKey.eid
+        }
+      } else {
+        finishedData = {
+          data: newEvents,
+          LastEvaluatedKey: null
+        }
       }
       // console.log('finishedData: ' + JSON.stringify(finishedData))
       return finishedData
