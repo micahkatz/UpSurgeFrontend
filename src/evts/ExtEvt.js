@@ -32,7 +32,7 @@ class ExtEvt extends Component {
         style={{
           marginVertical: 15
         }}
-        intEvtChildren={<IntEvt item={this.props.item}/>}
+        intEvtChildren={<IntEvt item={this.props.item} navigation={this.props.navigation}/>}
         >
         <Image
           style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.screenWidth, position: 'absolute'}}

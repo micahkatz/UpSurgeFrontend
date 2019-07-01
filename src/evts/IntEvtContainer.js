@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Animated, Dimensions, Modal, PanResponder, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
-
+import { Animated, Dimensions, Modal, PanResponder, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View, SafeAreaView, ScrollView } from 'react-native';
+import CloseButton from '../comps/CloseButton'
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const DRAG_DISMISS_THRESHOLD = 150;
 const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -25 : 0);
 const isIOS = Platform.OS === 'ios';
 import {GLOBALS} from '../globals'
-import IntEvt from './IntEvt'
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
@@ -263,20 +262,20 @@ export default class LightboxOverlay extends Component {
       renderHeader(this.close) :
       (
         <SafeAreaView>
-          <TouchableOpacity onPress={this.close}>
-            <Text style={styles.closeButton}>×</Text>
-          </TouchableOpacity>
+          <CloseButton onPress={this.close.bind(this)}/>
         </SafeAreaView>
       )
     )}</Animated.View>);
     const content = (
       <Animated.View style={[openStyle, dragStyle]} {...handlers}>
-        <Animated.View style={{padding: this.state.imgViewPadding, borderRadius: this.state.imgViewRadius, overflow: 'hidden', height: GLOBALS.extEvtHeight, width: this.state.imgViewWidth}}>
-          {this.props.children}
-        </Animated.View>
-        <Animated.View style={{opacity: this.state.intEvtOpacity}}>
-          {this.props.intEvtChildren}
-        </Animated.View>
+        <ScrollView>
+          <Animated.View style={{padding: this.state.imgViewPadding, borderRadius: this.state.imgViewRadius, overflow: 'hidden', height: GLOBALS.extEvtHeight, width: this.state.imgViewWidth}}>
+            {this.props.children}
+          </Animated.View>
+          <Animated.View style={{opacity: this.state.intEvtOpacity}}>
+            {this.props.intEvtChildren}
+          </Animated.View>
+        </ScrollView>
       </Animated.View>
     );
 
@@ -292,9 +291,9 @@ export default class LightboxOverlay extends Component {
 
     return (
       <Modal visible={isOpen} transparent={true} onRequestClose={() => this.close()}>
-        {background}
-        {content}
-        {header}
+          {background}
+            {content}
+            {header}
       </Modal>
     );
   }

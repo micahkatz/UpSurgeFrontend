@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
 import { GLOBALS} from '../globals'
 class IntEvt extends Component {
@@ -21,6 +22,12 @@ class IntEvt extends Component {
         <Text>
           {this.props.item.evtType}
         </Text>
+        <Button
+          title={'Navigate'}
+          onPress={() => {
+            this.props.navigation.push('EvtSub')
+          }}
+          />
       </View>
     );
   }

@@ -137,7 +137,7 @@ export default class Lightbox extends Component {
             </View>
           </TouchableOpacity>
         </Animated.View>
-        {this.props.navigator ? false : <IntEvtContainer {...this.getOverlayProps()} />}
+        <IntEvtContainer {...this.getOverlayProps()} />
       </View>
     );
   }

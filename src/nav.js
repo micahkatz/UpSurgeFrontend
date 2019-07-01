@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
+import React from 'react';
+import { View, Text } from 'react-native';
+import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import EvtFeedScreen from './pages/EvtFeed'
 import ExampleFuncs from './pages/ExampleFuncs'
 
@@ -23,17 +23,26 @@ class LbScreen extends React.Component {
     );
   }
 }
+const EvtStack = createStackNavigator({
+  Home: EvtFeedScreen,
+  EvtSub: SubFeedScreen
+});
 
-const TabNavigator = createBottomTabNavigator({
-  EvtFeed: EvtFeedScreen,
+const MainTabs = createBottomTabNavigator({
+  EvtFeed: EvtStack,
   SubFeed: SubFeedScreen,
   Leaderboard: ExampleFuncs,
 });
 
 const AppNavigator = createStackNavigator({
-  TabNav: {
-    screen: TabNavigator
+  TabNav: MainTabs
+},
+{
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
   }
-});
+}
+);
 
 export default createAppContainer(AppNavigator);

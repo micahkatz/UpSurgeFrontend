@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Image,
-  FlatList
+  FlatList,
+  Button
 } from 'react-native';
 import ExtEvt from '../evts/ExtEvt';
 import {GLOBALS} from '../globals'
@@ -102,7 +103,7 @@ class Home extends Component {
         keyExtractor = {(item, index) => item.eid}
         renderItem={({item, index}) => {
           return (
-            <ExtEvt item={item}/>
+            <ExtEvt item={item} navigation={this.props.navigation}/>
           )
         }}
         refreshing={this.state.refreshing}
