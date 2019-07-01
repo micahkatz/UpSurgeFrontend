@@ -30,7 +30,7 @@ class ExtEvt extends Component {
       <EvtContainer
         backgroundColor={'black'}
         style={{
-          marginVertical: 10
+          marginVertical: 15
         }}
         intEvtChildren={<IntEvt item={this.props.item}/>}
         >

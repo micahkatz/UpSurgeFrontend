@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
-import HomeScreen from './pages/Home'
+import EvtFeedScreen from './pages/EvtFeed'
 import ExampleFuncs from './pages/ExampleFuncs'
 
 
@@ -25,7 +25,7 @@ class LbScreen extends React.Component {
 }
 
 const TabNavigator = createBottomTabNavigator({
-  EvtFeed: HomeScreen,
+  EvtFeed: EvtFeedScreen,
   SubFeed: SubFeedScreen,
   Leaderboard: ExampleFuncs,
 });

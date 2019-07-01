@@ -25,3 +25,19 @@ exports.PickImg = async () => {
   })
   return image
 }
+
+exports.PickVid = async () => {
+  video = await ImagePicker.openPicker({
+    mediaType: "video"
+  })
+  return video
+}
+
+exports.UploadVid = async (video, sid) => {
+  let uri = video.path
+  const response = await fetch(uri)
+  const blob = await response.blob() 
+  Storage.put(sid + '.mp4', blob, {
+    contentType: video.mime
+  })
+}

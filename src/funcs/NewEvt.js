@@ -9,12 +9,12 @@ exports.NewActEvt = async () => {
   // the data being inserted into the DB
   let config = {
     body: {
-      eid: uuidv4(), // generates unique userID
-      title: 'example', // TODO: the user inputs title
-      desc: 'example text', // TODO: the user inputs desc
+      eid: uuidv4(), // generates unique evtID
+      title: "Nitay's Event", // TODO: the user inputs title
+      desc: 'Just an event from Nitay', // TODO: the user inputs desc
       ts: Math.round((new Date()).getTime() / 1000), // calculates the seconds
       uid: await GetUID(), // retrieves User Id from storage
-      cat: 'SPORTS', // TODO: the user inputs their categories
+      cat: 'MUSIC', // TODO: the user inputs their categories
       evtType: 'ACT'
     }
   }
