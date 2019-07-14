@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Amplify, {Auth} from 'aws-amplify';
-import StoreUID from './src/funcs/auth'
+import {StoreUID} from './src/funcs/auth'
 import { withAuthenticator } from 'aws-amplify-react-native';
 import Nav from './src/nav'
 import awsconfig from './aws-exports';

@@ -4,9 +4,10 @@ import {AsyncStorage} from 'react-native'
 // stores the userID in AsyncStorage for later use
 exports.StoreUID = async (uid) => {
   try {
-    await AsyncStorage.setItem('uid', uid.substring(0,10)); // TODO: figure out if this is scalable
+    console.log('STORING:',uid.toString())
+    await AsyncStorage.setItem('uid', uid.toString());
   } catch (error) {
-    console.error(error)
+    console.error('ERROR WITH STORING',error)
   }
 };
 // gets the userID from AsyncStorage
