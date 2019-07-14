@@ -43,15 +43,6 @@ class ExampleFuncs extends Component<Props> {
   state = { apiResponse: null, jwt: null, LastEvaluatedKey: null,LastEvaluatedCatKey: null, LastEvaluatedProEvtKey: null, LastEvaluatedEvtSubKey: null, evtList: null, imgSrc: null };
 
   componentDidMount() {
-    Auth.currentSession()
-      .then(res => {
-        console.log('HERE IS THE RESULT OF AUTH', res)
-        let accessToken = res.getAccessToken()
-        let jwt = accessToken.getJwtToken()
-        StoreUID(jwt)
-        this.setState({jwt})
-      })
-      .catch(() => console.log('Not signed in'));
     Storage.get('abc.png')
     .then((imgSrc) => {
       this.setState({imgSrc})
@@ -223,7 +214,7 @@ class ExampleFuncs extends Component<Props> {
         <Button title='*New Chance Evt' onPress={() => NewChanceEvt()} />
         <Button title='*New ZBook Evt' onPress={() => NewZBEvt()} />
         <Button title='*New Trivia Evt' onPress={() => NewTrivEvt()} />
-        <Button title='*New Sub' onPress={() => NewSub('a18ecef2-be17-4169-9271-a7189c3cface')} />
+        <Button title='*New Sub' onPress={() => NewSub('0519c6ef-9eac-44a3-a529-372daec3b53b')} />
         <Button title='*DEL Request' onPress={this.delItem.bind(this)} />
         <Button title='*GET Request' onPress={this.getItem.bind(this)} />
         <Button title='*Get Event Feed' onPress={this.scanItems.bind(this)} />
