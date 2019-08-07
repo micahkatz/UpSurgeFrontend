@@ -38,7 +38,7 @@ class ExtEvt extends Component {
           onPress={() => {
             this.props.navigation.push('IntEvt', {
               imgUri: this.state.imgUri,
-              item: this.props.item
+              item: {...this.props.item, numSubs: '321'}
             })
           }}
           >
@@ -48,17 +48,16 @@ class ExtEvt extends Component {
               overflow: 'hidden',
               height: GLOBALS.extEvtHeight,
               width: GLOBALS.extEvtWidth,
-              marginVertical: 10
+              marginVertical: 10,
+              backgroundColor: GLOBALS.lightGrey
             }}
             >
             <View>
               <Transition shared={this.props.item.eid}>
-                <View>
-                  <Image
-                    style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.extEvtWidth}}
-                    source={{ uri: this.state.imgUri}}
-                    />
-                </View>
+                <Image
+                  style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.extEvtWidth}}
+                  source={{ uri: this.state.imgUri}}
+                  />
               </Transition>
               <View
                 style={{
@@ -67,17 +66,19 @@ class ExtEvt extends Component {
                   width: GLOBALS.extEvtWidth
                 }}
                 >
-                <Text
-                  style={{
-                    fontSize: 40,
-                    color: 'white',
-                    fontWeight: 'bold',
-                    margin: 10,
-                    width: GLOBALS.extEvtWidth * .6
-                  }}
-                  >
-                  {this.props.item.title.toUpperCase()}
-                </Text>
+                <Transition shared={this.props.item.eid + '-title'}>
+                  <Text
+                    style={{
+                      fontSize: 30,
+                      color: 'white',
+                      fontWeight: 'bold',
+                      margin: 10,
+                      width: GLOBALS.extEvtWidth * .7
+                    }}
+                    >
+                    {this.props.item.title.toUpperCase()}
+                  </Text>
+                </Transition>
                 <BlurView
                   style={{
                     width: GLOBALS.extEvtWidth,
@@ -98,15 +99,17 @@ class ExtEvt extends Component {
                     source={{uri: 'ActEvt'}}
                     />
                   <View>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontSize: 16,
-                        fontWeight: 'bold'
-                      }}
-                      >
-                      321 Posts
-                    </Text>
+                    <Transition shared={this.props.item.eid + '-numsubs'}>
+                      <Text
+                        style={{
+                          color: GLOBALS.darkGrey,
+                          fontSize: 16,
+                          fontWeight: 'bold'
+                        }}
+                        >
+                        321 Posts
+                      </Text>
+                    </Transition>
                     <Text
                       style={{
                         color: '#6a6a6a',

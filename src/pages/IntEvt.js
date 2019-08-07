@@ -27,12 +27,46 @@ class IntEvt extends Component {
           flex: 1
         }}
         >
-        <Transition shared={item.eid}>
-          <Image
-            style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.screenWidth}}
-            source={{ uri: imgUri}}
-            />
-        </Transition>
+        <View>
+          <Transition shared={item.eid}>
+            <Image
+              style={{ height: GLOBALS.extEvtHeight / 2, width: GLOBALS.screenWidth}}
+              source={{ uri: imgUri}}
+              />
+          </Transition>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              width: GLOBALS.extEvtWidth ,
+              padding: 20
+            }}
+            >
+            <Transition shared={item.eid + '-title'}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  fontSize: 30,
+                  marginBottom: 5
+                }}
+                >
+                {item.title.toUpperCase()}
+              </Text>
+            </Transition>
+            <Transition shared={item.eid + '-numsubs'}>
+              <Text
+                style={{
+                  color: GLOBALS.lightGrey,
+                  fontSize: 16,
+                  fontWeight: 'bold'
+                }}
+                >
+                {item.numSubs} Posts - {item.cat}
+              </Text>
+            </Transition>
+          </View>
+        </View>
         <Transition shared={'topbar'}>
           <SafeAreaView
             style={{
@@ -48,11 +82,26 @@ class IntEvt extends Component {
         </Transition>
         <View
           style={{
-            alignItems: 'center',
             padding: 20
           }}
           >
-          <Text>{item.title}</Text>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: 'bold',
+              color: GLOBALS.grey
+            }}
+            >
+            Description
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              marginLeft: 10
+            }}
+            >
+            {item.desc}
+          </Text>
           <Button
             title={'Profile'}
             onPress={() =>  this.props.navigation.push('Profile', {
