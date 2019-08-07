@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import {GLOBALS} from '../globals'
 import {GetIMG} from '../funcs/media'
+import {getTimestamp} from '../funcs/common'
+import { BlurView } from "@react-native-community/blur";
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
@@ -42,25 +44,83 @@ class ExtEvt extends Component {
           >
           <View
             style={{
-              borderRadius: 15, overflow: 'hidden', height: GLOBALS.extEvtHeight, width: GLOBALS.extEvtWidth, marginVertical: 10
+              borderRadius: 15,
+              overflow: 'hidden',
+              height: GLOBALS.extEvtHeight,
+              width: GLOBALS.extEvtWidth,
+              marginVertical: 10
             }}
             >
-            <Transition shared={this.props.item.eid}>
-              <Image
-                style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.extEvtWidth}}
-                source={{ uri: this.state.imgUri}}
-                />
-            </Transition>
+            <View>
+              <Transition shared={this.props.item.eid}>
+                <View>
+                  <Image
+                    style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.extEvtWidth}}
+                    source={{ uri: this.state.imgUri}}
+                    />
+                </View>
+              </Transition>
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  width: GLOBALS.extEvtWidth
+                }}
+                >
+                <Text
+                  style={{
+                    fontSize: 40,
+                    color: 'white',
+                    fontWeight: 'bold',
+                    margin: 10,
+                    width: GLOBALS.extEvtWidth * .6
+                  }}
+                  >
+                  {this.props.item.title.toUpperCase()}
+                </Text>
+                <BlurView
+                  style={{
+                    width: GLOBALS.extEvtWidth,
+                    padding: 15,
+                    paddingVertical: 20,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  }}
+                  blurType="xlight"
+                  blurAmount={50}
+                  >
+                  <Image
+                    style={{
+                      height: 20,
+                      width: 20,
+                      margin: 10
+                    }}
+                    source={{uri: 'ActEvt'}}
+                    />
+                  <View>
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontSize: 16,
+                        fontWeight: 'bold'
+                      }}
+                      >
+                      321 Posts
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#6a6a6a',
+                        fontSize: 16
+                      }}
+                      >
+                      {getTimestamp(this.props.item.ts).toUpperCase()}
+                    </Text>
+                  </View>
+                </BlurView>
+              </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
-        <View style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around'
-          }}>
-          <Text>
-            {this.props.item.title}
-          </Text>
-        </View>
       </View>
     );
   }

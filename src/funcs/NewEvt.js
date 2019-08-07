@@ -12,7 +12,7 @@ exports.NewActEvt = async () => {
       eid: uuidv4(), // generates unique evtID
       title: "Nitay's Event", // TODO: the user inputs title
       desc: 'Just an event from Nitay', // TODO: the user inputs desc
-      ts: Math.round((new Date()).getTime() / 1000), // calculates the seconds
+      ts: new Date(), // calculates the seconds
       uid: await GetUID(), // retrieves User Id from storage
       cat: 'MUSIC', // TODO: the user inputs their categories
       evtType: 'ACT'
