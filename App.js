@@ -13,7 +13,7 @@ class App extends Component<Props> {
         return Auth.currentAuthenticatedUser()
       })
       .then((user) => {
-        console.log('HERE IS THE USSER', user.username)
+        console.log('HERE IS THE USER', user.username)
         StoreUID(user.username)
       })
       .catch(() => console.log('Not signed in'));
@@ -26,5 +26,5 @@ class App extends Component<Props> {
 }
 
 export default withAuthenticator(App, {
-  includeGreetings: true
+  includeGreetings: false
 });

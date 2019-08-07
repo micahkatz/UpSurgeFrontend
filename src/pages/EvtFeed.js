@@ -5,11 +5,15 @@ import {
   View,
   Image,
   FlatList,
-  Button
+  Button,
+  SafeAreaView
 } from 'react-native';
-import ExtEvt from '../evts/ExtEvt';
+import ExtEvt from './ExtEvt';
 import {GLOBALS} from '../globals'
 import {FetchEvts} from '../funcs/evtFeed'
+import {
+  Transition
+} from 'react-navigation-fluid-transitions';
 class Home extends Component {
   constructor(props){
     super(props)
@@ -19,6 +23,9 @@ class Home extends Component {
       refreshing: false,
       noneLeft: false // if there are no more evts to render
     }
+  }
+  componentDidMount(){
+    this.handleRefresh()
   }
   async handleRefresh() {
     this.setState({
@@ -97,24 +104,35 @@ class Home extends Component {
   }
   render() {
     return (
-      <FlatList
-        contentContainerStyle={styles.container}
-        data={this.state.evtList}
-        keyExtractor = {(item, index) => item.eid}
-        renderItem={({item, index}) => {
-          return (
-            <ExtEvt item={item} navigation={this.props.navigation}/>
-          )
-        }}
-        refreshing={this.state.refreshing}
-        showsHorizontalScrollIndicator={false}
-        automaticallyAdjustContentInsets={false}
-        bouncesZoom={true}
-        decelerationRate={true}
-        onRefresh={this.handleRefresh.bind(this)}
-        onEndReached={this.handleBottomReached.bind(this)}
-        >
-      </FlatList>
+      <SafeAreaView style={{flex: 1}}>
+        <View
+          style={{
+            flexDirection: 'row'
+          }}
+          >
+          <Button
+            title={'Profile'}
+            />
+        </View>
+        <FlatList
+          contentContainerStyle={styles.container}
+          data={this.state.evtList}
+          keyExtractor = {(item, index) => item.eid}
+          renderItem={({item, index}) => {
+            return (
+              <ExtEvt item={item} navigation={this.props.navigation}/>
+            )
+          }}
+          refreshing={this.state.refreshing}
+          showsHorizontalScrollIndicator={false}
+          automaticallyAdjustContentInsets={false}
+          bouncesZoom={true}
+          decelerationRate={true}
+          onRefresh={this.handleRefresh.bind(this)}
+          onEndReached={this.handleBottomReached.bind(this)}
+          >
+        </FlatList>
+      </SafeAreaView>
     );
   }
 }

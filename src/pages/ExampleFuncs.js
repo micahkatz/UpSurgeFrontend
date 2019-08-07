@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, Image, ScrollView} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, Image, ScrollView, SafeAreaView} from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -210,48 +210,50 @@ class ExampleFuncs extends Component<Props> {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <Button title='*New Activity Evt' onPress={() => NewActEvt()} />
-        <Button title='*New Chance Evt' onPress={() => NewChanceEvt()} />
-        <Button title='*New ZBook Evt' onPress={() => NewZBEvt()} />
-        <Button title='*New Trivia Evt' onPress={() => NewTrivEvt()} />
-        <Button title='*New Sub' onPress={() => NewSub('0519c6ef-9eac-44a3-a529-372daec3b53b')} />
-        <Button title='*DEL Request' onPress={this.delItem.bind(this)} />
-        <Button title='*GET Request' onPress={this.getItem.bind(this)} />
-        <Button title='*Get Event Feed' onPress={this.scanItems.bind(this)} />
-        <Button title='*ADD FRIEND' onPress={() => AddFriend()} />
-        <Button title='*Get SPORTS FEED' onPress={this.fetchCatFeed.bind(this)} />
-        <Button title='*Get Profile Evt FEED' onPress={this.fetchProfileEvtFeed.bind(this)} />
-        <Button title='*Get Profile' onPress={() => GetProfile('eyJraWQiOi')} />
-        <Button title='*Get Evt Submissions' onPress={this.fetchEvtSubFeed.bind(this)} />
-        <Button title='*Get Profile Submissions' onPress={this.fetchProSubFeed.bind(this)} />
-        <Button title='*Edit Profile' onPress={() => EditProfile()} />
-        <Button title='*Zap Sub' onPress={() => ZapSub('03303a4d-9b65-409f-8bbe-8453df3f425b')} />
-        <Button title='*Upload IMG' onPress={() => UploadImg()} />
-        <Button title='*Search' onPress={this.searchDb.bind(this)} />
-        <Text>Response: {this.state.apiResponse && JSON.stringify(this.state.apiResponse)}</Text>
-        {
-          this.state.evtList != null
-          ?
-          <View>
-            {
-              this.state.evtList.map((item) => {
-                return (
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      padding: 10
-                    }}
-                    key={item.eid}>
-                    <Text>{item.eid}</Text>
-                  </View>
-                )
-              })
-            }
-          </View>
-          :
-          <View/>
+        <SafeAreaView>
+          <Button title='*New Activity Evt' onPress={() => NewActEvt()} />
+          <Button title='*New Chance Evt' onPress={() => NewChanceEvt()} />
+          <Button title='*New ZBook Evt' onPress={() => NewZBEvt()} />
+          <Button title='*New Trivia Evt' onPress={() => NewTrivEvt()} />
+          <Button title='*New Sub' onPress={() => NewSub('0519c6ef-9eac-44a3-a529-372daec3b53b')} />
+          <Button title='*DEL Request' onPress={this.delItem.bind(this)} />
+          <Button title='*GET Request' onPress={this.getItem.bind(this)} />
+          <Button title='*Get Event Feed' onPress={this.scanItems.bind(this)} />
+          <Button title='*ADD FRIEND' onPress={() => AddFriend()} />
+          <Button title='*Get SPORTS FEED' onPress={this.fetchCatFeed.bind(this)} />
+          <Button title='*Get Profile Evt FEED' onPress={this.fetchProfileEvtFeed.bind(this)} />
+          <Button title='*Get Profile' onPress={() => GetProfile('eyJraWQiOi')} />
+          <Button title='*Get Evt Submissions' onPress={this.fetchEvtSubFeed.bind(this)} />
+          <Button title='*Get Profile Submissions' onPress={this.fetchProSubFeed.bind(this)} />
+          <Button title='*Edit Profile' onPress={() => EditProfile()} />
+          <Button title='*Zap Sub' onPress={() => ZapSub('03303a4d-9b65-409f-8bbe-8453df3f425b')} />
+          <Button title='*Upload IMG' onPress={() => UploadImg()} />
+          <Button title='*Search' onPress={this.searchDb.bind(this)} />
+          <Text>Response: {this.state.apiResponse && JSON.stringify(this.state.apiResponse)}</Text>
+          {
+            this.state.evtList != null
+            ?
+            <View>
+              {
+                this.state.evtList.map((item) => {
+                  return (
+                    <View
+                      style={{
+                        borderWidth: 1,
+                        padding: 10
+                      }}
+                      key={item.eid}>
+                      <Text>{item.eid}</Text>
+                    </View>
+                  )
+                })
+              }
+            </View>
+            :
+            <View/>
 
-        }
+          }
+        </SafeAreaView>
       </ScrollView>
     );
   }

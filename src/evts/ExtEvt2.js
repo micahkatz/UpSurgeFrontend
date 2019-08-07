@@ -3,13 +3,17 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  Button
 } from 'react-native';
 import EvtContainer from './EvtContainer'
 import {GLOBALS} from '../globals'
 import IntEvt from './IntEvt'
 import {GetIMG} from '../funcs/media'
-class ExtEvt extends Component {
+import {
+  Transition
+} from 'react-navigation-fluid-transitions';
+class ExtEvt2 extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -34,9 +38,18 @@ class ExtEvt extends Component {
         }}
         intEvtChildren={<IntEvt item={this.props.item} navigation={this.props.navigation}/>}
         >
-        <Image
-          style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.screenWidth, position: 'absolute'}}
-          source={{ uri: this.state.imgUri}}
+        <Transition shared={'img'}>
+          <Image
+            style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.screenWidth, position: 'absolute'}}
+            source={{ uri: this.state.imgUri}}
+            />
+        </Transition>
+
+        <Button
+          title={'Navigate'}
+          onPress={() => {
+            this.props.navigation.push('EvtSub')
+          }}
           />
       </EvtContainer>
     );
@@ -44,4 +57,4 @@ class ExtEvt extends Component {
 }
 
 
-module.exports = ExtEvt;
+module.exports = ExtEvt2;
