@@ -16,7 +16,12 @@ import {FetchEvts} from '../funcs/evtFeed'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
-class Home extends Component {
+
+/*
+  EvtFeed.js contains the Feed of EVENTS in a FlatList
+*/
+
+export default class EvtFeed extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -28,6 +33,8 @@ class Home extends Component {
       noneLeft: false // if there are no more evts to render
     }
   }
+
+  // when EvtFeed is mounted, the feed is automatically refreshed
   componentDidMount(){
     this.handleRefresh()
   }
@@ -131,7 +138,9 @@ class Home extends Component {
             />
         </View>
         <FlatList
-          contentContainerStyle={styles.container}
+          contentContainerStyle={{
+            alignItems: 'center'
+          }}
           data={this.state.evtList}
           keyExtractor = {(item, index) => item.eid}
           renderItem={({item, index}) => {
@@ -185,11 +194,3 @@ class Home extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
-});
-
-module.exports = Home;

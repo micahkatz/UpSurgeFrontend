@@ -1,6 +1,11 @@
 import {
   Dimensions
 } from 'react-native'
+
+/*
+  GLOBALS are universal variables that can be used across the entire app
+*/
+
 exports.GLOBALS = {
   screenHeight: Dimensions.get('window').height,
   screenWidth: Dimensions.get('window').width,

@@ -1,3 +1,7 @@
+/*
+  nav.js handles all navigation between pages
+*/
+
 import React from 'react';
 import { View, Text, Button, TouchableWithoutFeedback } from 'react-native';
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
@@ -11,60 +15,7 @@ import {
   Transition
 } from 'react-navigation-fluid-transitions';
 
-class SubFeedScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Transition shared="example">
-          <View
-            style={{
-              borderWidth: 1,
-              borderRadius: 100 / 2,
-              width: 100,
-              height: 100
-            }}
-            />
-        </Transition>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            this.props.navigation.push('Lb')
-          }}
-          >
-          <Text>ExampleText</Text>
-        </TouchableWithoutFeedback>
-      </View>
-    );
-  }
-}
-class LbScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        <Transition shared="example">
-          <View
-            style={{
-              borderWidth: 1,
-              borderRadius: 150 / 2,
-              width: 150,
-              height: 150
-            }}
-            />
-        </Transition>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            this.props.navigation.goBack()
-          }}
-          >
-          <Text style={{
-              fontSize: 40
-            }}>
-            ExampleText
-          </Text>
-        </TouchableWithoutFeedback>
-      </View>
-    );
-  }
-}
+// EvtStack is the Second-Layer navigator for the app
 const EvtStack = createFluidNavigator({
   Home: EvtFeedScreen,
   IntEvt: IntEvtScreen,
@@ -72,6 +23,8 @@ const EvtStack = createFluidNavigator({
 },
 );
 
+
+// AppNavigator is the Top-Layer navigator for the entire app
 const AppNavigator = createStackNavigator({
   Main: EvtStack,
   NewEvt: NewEvtPg
