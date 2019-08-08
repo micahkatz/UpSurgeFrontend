@@ -7,9 +7,11 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 import {GLOBALS} from '../globals'
+import {STYLES} from '../styles'
 import {GetIMG} from '../funcs/media'
 import {getTimestamp} from '../funcs/common'
 import { BlurView } from "@react-native-community/blur";
+import Gradient from '../comps/Gradient'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
@@ -66,19 +68,25 @@ class ExtEvt extends Component {
                   width: GLOBALS.extEvtWidth
                 }}
                 >
-                <Transition shared={this.props.item.eid + '-title'}>
-                  <Text
+                <View>
+                  <Gradient
                     style={{
-                      fontSize: 30,
-                      color: 'white',
-                      fontWeight: 'bold',
-                      margin: 10,
-                      width: GLOBALS.extEvtWidth * .7
+                      width: GLOBALS.extEvtWidth,
+                      height: 100,
+                      position: 'absolute'
                     }}
-                    >
-                    {this.props.item.title.toUpperCase()}
-                  </Text>
-                </Transition>
+                    />
+                  <Transition shared={this.props.item.eid + '-title'}>
+                    <Text
+                      style={[
+                        STYLES.evtTitle,
+                        {margin: 10}
+                      ]}
+                      >
+                      {this.props.item.title.toUpperCase()}
+                    </Text>
+                  </Transition>
+                </View>
                 <BlurView
                   style={{
                     width: GLOBALS.extEvtWidth,

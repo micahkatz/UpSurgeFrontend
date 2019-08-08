@@ -71,14 +71,8 @@ const EvtStack = createFluidNavigator({
 },
 );
 
-const MainTabs = createBottomTabNavigator({
-  EvtFeed: EvtStack,
-  SubFeed: SubFeedScreen,
-  Leaderboard: ExampleFuncs,
-});
-
 const AppNavigator = createStackNavigator({
-  TabNav: MainTabs
+  Main: EvtStack
 },
 {
   headerMode: 'none',

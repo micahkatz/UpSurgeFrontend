@@ -3,6 +3,7 @@ package com.upsurgefrontend;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LinearGradientPackage(),
             new BlurViewPackage(),
             new RNGestureHandlerPackage(),
             new RNFetchBlobPackage(),

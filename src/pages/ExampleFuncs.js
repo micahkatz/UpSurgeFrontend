@@ -25,7 +25,7 @@ import {GetCatFeed} from '../funcs/evtFeed'
 import {GetProEvtFeed} from '../funcs/evtFeed'
 import {GetEvtSubs} from '../funcs/subFeed'
 import {GetProSubs} from '../funcs/subFeed'
-import {StoreUID} from '../funcs/auth'
+import {StoreUID, GetUID} from '../funcs/auth'
 import {AddFriend} from '../funcs/addFriend'
 import {GetProfile} from '../funcs/profile'
 import {EditProfile} from '../funcs/profile'
@@ -168,7 +168,8 @@ class ExampleFuncs extends Component<Props> {
   }
   async fetchProSubFeed() {
     try {
-      returnedData = await GetProSubs('eyJraWQiOi', this.state.LastEvaluatedEvtSubKey)
+      uid = await GetUID()
+      returnedData = await GetProSubs(uid, this.state.LastEvaluatedEvtSubKey)
       if(returnedData){
         newEvents = returnedData.data
         LastEvaluatedEvtSubKey = returnedData.LastEvaluatedKey
@@ -215,7 +216,7 @@ class ExampleFuncs extends Component<Props> {
           <Button title='*New Chance Evt' onPress={() => NewChanceEvt()} />
           <Button title='*New ZBook Evt' onPress={() => NewZBEvt()} />
           <Button title='*New Trivia Evt' onPress={() => NewTrivEvt()} />
-          <Button title='*New Sub' onPress={() => NewSub('0519c6ef-9eac-44a3-a529-372daec3b53b')} />
+          <Button title='*New Sub' onPress={() => NewSub('a37fe9bf-8efb-4834-b2bc-b458fb3c1e49')} />
           <Button title='*DEL Request' onPress={this.delItem.bind(this)} />
           <Button title='*GET Request' onPress={this.getItem.bind(this)} />
           <Button title='*Get Event Feed' onPress={this.scanItems.bind(this)} />

@@ -6,10 +6,12 @@ import {
   Image,
   FlatList,
   Button,
-  SafeAreaView
+  SafeAreaView,
+  ActivityIndicator
 } from 'react-native';
 import ExtEvt from './ExtEvt';
 import {GLOBALS} from '../globals'
+import NothingYet from '../comps/nothingYet'
 import {FetchEvts} from '../funcs/evtFeed'
 import {
   Transition
@@ -18,9 +20,11 @@ class Home extends Component {
   constructor(props){
     super(props)
     this.state = {
-      evtList: [],
-      LastEvaluatedKey: null,
-      refreshing: false,
+      evtList: [], // to store the list of events
+      LastEvaluatedKey: null, // to store the last id of the current feed
+      refreshing: false, // to show when the client refreshes the feed
+      loading: true, // to show loading at the first render
+      loadingMore: false, // to show when the client is fetching more data
       noneLeft: false // if there are no more evts to render
     }
   }
@@ -44,6 +48,7 @@ class Home extends Component {
             LastEvaluatedKey,
             // adds the new array of items to the previos array if the previos array contains items
             evtList: (prevState.evtList) ? [...prevState.evtList, ...newEvents] : newEvents,
+            loading: false,
             refreshing: false
           }));
         } else {
@@ -53,12 +58,14 @@ class Home extends Component {
             noneLeft: true,
             // adds the new array of items to the previos array if the previos array contains items
             evtList: (prevState.evtList) ? [...prevState.evtList, ...newEvents] : newEvents,
+            loading: false,
             refreshing: false
           }));
         }
       } else {
         this.setState({
           refreshing: false,
+          loading: false,
           noneLeft: true
         })
       }
@@ -69,6 +76,7 @@ class Home extends Component {
   async handleBottomReached() {
     if(this.state.noneLeft == false){
       try {
+        this.setState({loadingMore: true})
         returnedData = await FetchEvts(this.state.LastEvaluatedKey)
         if(returnedData){
           if(returnedData.LastEvaluatedKey){
@@ -79,7 +87,8 @@ class Home extends Component {
               LastEvaluatedKey,
               // adds the new array of items to the previos array if the previos array contains items
               evtList: (prevState.evtList) ? [...prevState.evtList, ...newEvents] : newEvents,
-              refreshing: false
+              refreshing: false,
+              loadingMore: false
             }));
           } else {
             newEvents = returnedData.data
@@ -88,13 +97,15 @@ class Home extends Component {
               noneLeft: true,
               // adds the new array of items to the previos array if the previos array contains items
               evtList: (prevState.evtList) ? [...prevState.evtList, ...newEvents] : newEvents,
-              refreshing: false
+              refreshing: false,
+              loadingMore: false
             }));
           }
         } else {
           this.setState({
             refreshing: false,
-            noneLeft: true
+            noneLeft: true,
+            loadingMore: false
           })
         }
       } catch (e) {
@@ -130,8 +141,41 @@ class Home extends Component {
           decelerationRate={true}
           onRefresh={this.handleRefresh.bind(this)}
           onEndReached={this.handleBottomReached.bind(this)}
+          ListHeaderComponent={() => {
+            if(this.state.loading){
+              return (
+                <View style={{margin: 10}}>
+                  <ActivityIndicator size={'large'} />
+                </View>
+              )
+            } else if (this.state.evtList.length > 0){
+              return (
+                <View/>
+              )
+            } else {
+              return (
+                <View>
+                  <NothingYet text={'Nothing to Show'}/>
+                </View>
+              )
+            }
+          }}
+          ListFooterComponent={() => {
+            if(this.state.loadingMore == true){
+              return(
+                <View style={{margin: 10}}>
+                  <ActivityIndicator size="small" />
+                </View>
+              )
+            } else {
+              return (
+                <View/>
+              )
+            }
+          }}
           >
         </FlatList>
+
       </SafeAreaView>
     );
   }

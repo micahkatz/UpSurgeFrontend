@@ -11,7 +11,7 @@ exports.StoreUID = async (uid) => {
   }
 };
 // gets the userID from AsyncStorage
-exports.GetUID = async (uid) => {
+exports.GetUID = async () => {
   try {
     const value = await AsyncStorage.getItem('uid');
     if (value !== null) {

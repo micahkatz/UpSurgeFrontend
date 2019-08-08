@@ -9,8 +9,11 @@ import {
   ScrollView
 } from 'react-native';
 import {GLOBALS} from '../globals'
+import {STYLES} from '../styles'
 import CloseButton from '../comps/CloseButton'
+import EvtSubFeed from './EvtSubFeed';
 import {GetIMG} from '../funcs/media'
+import Gradient from '../comps/Gradient'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
@@ -34,22 +37,27 @@ class IntEvt extends Component {
               source={{ uri: imgUri}}
               />
           </Transition>
+          <Transition shared={'gradient'}>
+            <Gradient
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                width: GLOBALS.screenWidth,
+                height: 100
+              }}
+              />
+          </Transition>
           <View
             style={{
               position: 'absolute',
               bottom: 0,
-              width: GLOBALS.extEvtWidth ,
+              width: GLOBALS.extEvtWidth * .7,
               padding: 20
             }}
             >
             <Transition shared={item.eid + '-title'}>
               <Text
-                style={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  fontSize: 30,
-                  marginBottom: 5
-                }}
+                style={STYLES.evtTitle}
                 >
                 {item.title.toUpperCase()}
               </Text>
@@ -110,6 +118,7 @@ class IntEvt extends Component {
             >
           </Button>
         </View>
+        <EvtSubFeed eid={item.eid}/>
       </ScrollView>
     );
   }
