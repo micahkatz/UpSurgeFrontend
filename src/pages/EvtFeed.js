@@ -118,11 +118,16 @@ class Home extends Component {
       <SafeAreaView style={{flex: 1}}>
         <View
           style={{
-            flexDirection: 'row'
+            flexDirection: 'row',
+            justifyContent: 'space-between'
           }}
           >
           <Button
             title={'Profile'}
+            />
+          <Button
+            title={'New Evt'}
+            onPress={() => this.props.navigation.push('NewEvt')}
             />
         </View>
         <FlatList

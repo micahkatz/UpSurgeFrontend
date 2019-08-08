@@ -5,6 +5,7 @@ import EvtFeedScreen from './pages/EvtFeed'
 import ExampleFuncs from './pages/ExampleFuncs'
 import IntEvtScreen from './pages/IntEvt'
 import ProfileScreen from './pages/Profile'
+import NewEvtPg from './pages/NewEvt'
 import {
   createFluidNavigator,
   Transition
@@ -72,7 +73,8 @@ const EvtStack = createFluidNavigator({
 );
 
 const AppNavigator = createStackNavigator({
-  Main: EvtStack
+  Main: EvtStack,
+  NewEvt: NewEvtPg
 },
 {
   headerMode: 'none',
