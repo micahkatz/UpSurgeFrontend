@@ -1,3 +1,7 @@
+/*
+  * ExtEvt.js contains the exterior event component
+*/
+
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -7,6 +11,7 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 import {GLOBALS} from '../globals'
+import {FadeIn, FadeOut} from '../animations'
 import {STYLES} from '../styles'
 import {GetIMG} from '../funcs/media'
 import {getTimestamp} from '../funcs/common'
@@ -69,13 +74,20 @@ class ExtEvt extends Component {
                 }}
                 >
                 <View>
-                  <Gradient
-                    style={{
+                  <View style={{
                       width: GLOBALS.extEvtWidth,
                       height: 100,
                       position: 'absolute'
-                    }}
-                    />
+                    }}>
+                    <Transition shared={this.props.item.eid + '-gradient'}>
+                      <Gradient
+                        style={{
+                          width: GLOBALS.extEvtWidth,
+                          height: 100
+                        }}
+                        />
+                    </Transition>
+                  </View>
                   <Transition shared={this.props.item.eid + '-title'}>
                     <Text
                       style={[
@@ -87,47 +99,61 @@ class ExtEvt extends Component {
                     </Text>
                   </Transition>
                 </View>
-                <BlurView
+                <View
                   style={{
-                    width: GLOBALS.extEvtWidth,
-                    padding: 15,
-                    paddingVertical: 20,
-                    flexDirection: 'row',
-                    alignItems: 'center'
+                    width: GLOBALS.extEvtWidth
                   }}
-                  blurType="xlight"
-                  blurAmount={50}
                   >
-                  <Image
-                    style={{
-                      height: 20,
-                      width: 20,
-                      margin: 10
-                    }}
-                    source={{uri: 'ActEvt'}}
-                    />
-                  <View>
-                    <Transition shared={this.props.item.eid + '-numsubs'}>
-                      <Text
+                  <Transition appear={FadeIn} disappear={FadeOut}>
+                    <BlurView
+                      style={{
+                        width: GLOBALS.extEvtWidth,
+                      }}
+                      blurType="xlight"
+                      blurAmount={50}
+                      >
+                      <View
                         style={{
-                          color: GLOBALS.darkGrey,
-                          fontSize: 16,
-                          fontWeight: 'bold'
+                          padding: 15,
+                          paddingVertical: 20,
+                          flexDirection: 'row',
+                          alignItems: 'center'
+
                         }}
                         >
-                        321 Posts
-                      </Text>
-                    </Transition>
-                    <Text
-                      style={{
-                        color: '#6a6a6a',
-                        fontSize: 16
-                      }}
-                      >
-                      {getTimestamp(this.props.item.ts).toUpperCase()}
-                    </Text>
-                  </View>
-                </BlurView>
+                        <Image
+                          style={{
+                            height: 20,
+                            width: 20,
+                            margin: 10
+                          }}
+                          source={{uri: 'ActEvt'}}
+                          />
+                        <View>
+                          <Transition shared={this.props.item.eid + '-numsubs'}>
+                            <Text
+                              style={{
+                                color: GLOBALS.darkGrey,
+                                fontSize: 16,
+                                fontWeight: 'bold'
+                              }}
+                              >
+                              321 Posts
+                            </Text>
+                          </Transition>
+                          <Text
+                            style={{
+                              color: '#6a6a6a',
+                              fontSize: 16
+                            }}
+                            >
+                            {getTimestamp(this.props.item.ts).toUpperCase()}
+                          </Text>
+                        </View>
+                      </View>
+                    </BlurView>
+                  </Transition>
+                </View>
               </View>
             </View>
           </View>

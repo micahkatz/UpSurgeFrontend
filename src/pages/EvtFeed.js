@@ -1,3 +1,6 @@
+/*
+  EvtFeed.js contains the Feed of EVENTS in a FlatList
+*/
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -7,19 +10,17 @@ import {
   FlatList,
   Button,
   SafeAreaView,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
-import ExtEvt from './ExtEvt';
+import ExtEvt from '../comps/ExtEvt';
 import {GLOBALS} from '../globals'
 import NothingYet from '../comps/nothingYet'
 import {FetchEvts} from '../funcs/evtFeed'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
-
-/*
-  EvtFeed.js contains the Feed of EVENTS in a FlatList
-*/
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
 export default class EvtFeed extends Component {
   constructor(props){
@@ -122,21 +123,43 @@ export default class EvtFeed extends Component {
   }
   render() {
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <View
+      <View>
+        <SafeAreaView
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}
           >
-          <Button
-            title={'Profile'}
+          <View
+            style={{
+              width: 35,
+              height: 35,
+              borderRadius: 35 /2,
+              backgroundColor: GLOBALS.grey,
+              margin: 5,
+              marginLeft: 10
+            }}
             />
-          <Button
-            title={'New Evt'}
+          <Text
+            style={{
+              fontFamily: 'HelveticaNeue',
+              fontSize: 16,
+              fontWeight: 'bold'
+            }}
+            >
+            Home
+          </Text>
+          <TouchableOpacity
             onPress={() => this.props.navigation.push('NewEvt')}
-            />
-        </View>
+            style={{
+              margin: 5,
+              marginRight: 10
+            }}
+            >
+            <AntDesign name={'plus'} size={35} color={GLOBALS.grey}/>
+          </TouchableOpacity>
+        </SafeAreaView>
         <FlatList
           contentContainerStyle={{
             alignItems: 'center'
@@ -158,7 +181,12 @@ export default class EvtFeed extends Component {
           ListHeaderComponent={() => {
             if(this.state.loading){
               return (
-                <View style={{margin: 10}}>
+                <View style={{
+                    flex: 1,
+                    height: GLOBALS.screenHeight - 130,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
                   <ActivityIndicator size={'large'} />
                 </View>
               )
@@ -189,8 +217,7 @@ export default class EvtFeed extends Component {
           }}
           >
         </FlatList>
-
-      </SafeAreaView>
+      </View>
     );
   }
 }

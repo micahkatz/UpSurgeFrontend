@@ -1,3 +1,7 @@
+/*
+  * ExtSub.js contains the exterior submission component
+*/
+
 import React, { Component } from 'react';
 import {
   StyleSheet,

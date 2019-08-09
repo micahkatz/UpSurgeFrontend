@@ -1,3 +1,6 @@
+/*
+  EvtSubFeed.js contains the Feed of SUBMISSIONS that are in an EVENT
+*/
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -9,7 +12,7 @@ import {
   SafeAreaView,
   ActivityIndicator
 } from 'react-native';
-import ExtSub from './ExtSub';
+import ExtSub from '../comps/ExtSub';
 import {GLOBALS} from '../globals'
 import {GetEvtSubs} from '../funcs/subFeed'
 import NothingYet from '../comps/nothingYet'
@@ -17,9 +20,6 @@ import {
   Transition
 } from 'react-navigation-fluid-transitions';
 
-/*
-  EvtSubFeed.js contains the Feed of SUBMISSIONS that are in an EVENT
-*/
 
 export default class EvtSubFeed extends Component {
   constructor(props){

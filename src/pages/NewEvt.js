@@ -111,7 +111,7 @@ export default class NewEvt extends Component {
                 this.state.subCats.map((item, index) => {
                   return (
                     <TouchableOpacity
-                      onPress={() => Actions.subCats({subCats: this.state.subCats, onFinished: this.onFinished})}
+                      onPress={() => this.props.navigation.push('PickCats',{subCats: this.state.subCats, onFinished: this.onFinished})}
                       key={`${item}-${index}`}
                       style={styles.subCat}>
                       <Text style={styles.subCatText} key={`${item}-${index}`}>{item}</Text>
@@ -126,7 +126,7 @@ export default class NewEvt extends Component {
           <TouchableWithoutFeedback
             delayPressIn={0}
             onPress={() => {
-              Actions.subCats({onFinished: this.onFinished})
+              this.props.navigation.push('PickCats',{onFinished: this.onFinished})
             }}
             >
             <View style={{

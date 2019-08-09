@@ -1,3 +1,7 @@
+/*
+  * IntEvt.js contains the Interior event page
+*/
+
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -37,16 +41,21 @@ class IntEvt extends Component {
               source={{ uri: imgUri}}
               />
           </Transition>
-          <Transition shared={'gradient'}>
-            <Gradient
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                width: GLOBALS.screenWidth,
-                height: 100
-              }}
-              />
-          </Transition>
+          <View style={{
+              width: GLOBALS.extEvtWidth,
+              height: 100,
+              bottom: 0,
+              position: 'absolute'
+            }}>
+            <Transition shared={item.eid + '-gradient'}>
+              <Gradient
+                style={{
+                  width: GLOBALS.screenWidth,
+                  height: 100
+                }}
+                />
+            </Transition>
+          </View>
           <View
             style={{
               position: 'absolute',

@@ -10,6 +10,7 @@ import ExampleFuncs from './pages/ExampleFuncs'
 import IntEvtScreen from './pages/IntEvt'
 import ProfileScreen from './pages/Profile'
 import NewEvtPg from './pages/NewEvt'
+import PickCatPg from './comps/PickCat'
 import {
   createFluidNavigator,
   Transition
@@ -27,7 +28,8 @@ const EvtStack = createFluidNavigator({
 // AppNavigator is the Top-Layer navigator for the entire app
 const AppNavigator = createStackNavigator({
   Main: EvtStack,
-  NewEvt: NewEvtPg
+  NewEvt: NewEvtPg,
+  PickCats: PickCatPg
 },
 {
   headerMode: 'none',
