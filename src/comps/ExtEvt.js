@@ -130,24 +130,22 @@ class ExtEvt extends Component {
                           source={{uri: 'ActEvt'}}
                           />
                         <View>
-                          <Transition shared={this.props.item.eid + '-numsubs'}>
-                            <Text
-                              style={{
-                                color: GLOBALS.darkGrey,
-                                fontSize: 16,
-                                fontWeight: 'bold'
-                              }}
-                              >
-                              321 Posts
-                            </Text>
-                          </Transition>
+                          <Text
+                            style={{
+                              color: GLOBALS.darkGrey,
+                              fontSize: 16,
+                              fontWeight: 'bold'
+                            }}
+                            >
+                            321 Posts
+                          </Text>
                           <Text
                             style={{
                               color: '#6a6a6a',
                               fontSize: 16
                             }}
                             >
-                            {getTimestamp(this.props.item.ts).toUpperCase()}
+                            {getTimestamp(this.props.item.ts)}
                           </Text>
                         </View>
                       </View>

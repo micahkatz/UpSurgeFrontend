@@ -17,6 +17,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import CropImg from 'react-native-image-crop-picker';
 import {GLOBALS} from '../globals'
 import CloseButton from '../comps/CloseButton'
+import TopBar from '../comps/TopBar';
 export default class NewEvt extends Component {
   constructor(props){
     super(props)
@@ -149,8 +150,9 @@ export default class NewEvt extends Component {
 
     return (
       <SafeAreaView>
-        <CloseButton
-          onPress={() =>  this.props.navigation.goBack()}
+        <TopBar
+          left={'CLOSE'}
+          leftPress={this.props.navigation.pop}
           />
         <View style={{
             flexDirection: 'row',

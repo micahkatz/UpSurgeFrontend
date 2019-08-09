@@ -10,20 +10,27 @@ import {
   Image,
   Button,
   SafeAreaView,
-  ScrollView
+  ScrollView,
+  RefreshControl
 } from 'react-native';
 import {GLOBALS} from '../globals'
 import {STYLES} from '../styles'
+import {FadeIn, FadeOut} from '../animations'
 import CloseButton from '../comps/CloseButton'
 import EvtSubFeed from './EvtSubFeed';
 import {GetIMG} from '../funcs/media'
 import Gradient from '../comps/Gradient'
+import TopBar from '../comps/TopBar'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
 class IntEvt extends Component {
   constructor(props){
     super(props)
+    this.state = {
+      refreshing: false
+    }
+    this.refs = {}
   }
   render() {
     const imgUri = this.props.navigation.getParam('imgUri');
@@ -33,6 +40,12 @@ class IntEvt extends Component {
         style={{
           flex: 1
         }}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={() => this.evtsubfeed.handleRefresh().then(() => this.setState({refreshing:false}))}
+            />
+        }
         >
         <View>
           <Transition shared={item.eid}>
@@ -71,10 +84,10 @@ class IntEvt extends Component {
                 {item.title.toUpperCase()}
               </Text>
             </Transition>
-            <Transition shared={item.eid + '-numsubs'}>
+            <Transition appear={FadeIn}>
               <Text
                 style={{
-                  color: GLOBALS.lightGrey,
+                  color: '#e2e2e2',
                   fontSize: 16,
                   fontWeight: 'bold'
                 }}
@@ -84,19 +97,6 @@ class IntEvt extends Component {
             </Transition>
           </View>
         </View>
-        <Transition shared={'topbar'}>
-          <SafeAreaView
-            style={{
-              flexDirection: 'row',
-              backgroundColor: 'transparent',
-              position: 'absolute'
-            }}
-            >
-            <CloseButton
-              onPress={() =>  this.props.navigation.goBack()}
-              />
-          </SafeAreaView>
-        </Transition>
         <View
           style={{
             padding: 20
@@ -127,7 +127,17 @@ class IntEvt extends Component {
             >
           </Button>
         </View>
-        <EvtSubFeed eid={item.eid}/>
+        <EvtSubFeed
+          eid={item.eid}
+          onRef={ref => (this.evtsubfeed = ref)}
+          />
+        <TopBar
+          left={'CLOSE'}
+          leftPress={this.props.navigation.pop}
+          style={{
+            position: 'absolute'
+          }}
+          />
       </ScrollView>
     );
   }

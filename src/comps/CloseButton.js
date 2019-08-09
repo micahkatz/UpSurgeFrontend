@@ -5,31 +5,35 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import { VibrancyView } from "@react-native-community/blur";
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { VibrancyView, BlurView } from "@react-native-community/blur";
+
+let bDiameter = 35
 class CloseButton extends Component {
   render() {
     return (
       <TouchableOpacity
         onPress={this.props.onPress}
         style={styles.container}>
-        <VibrancyView blurType="light" style={styles.vibrancy}>
-          <AntDesign size={30} name={'closecircle'}/>
-        </VibrancyView>
+        <BlurView blurType="dark" blurAmount={20} style={styles.vibrancy}>
+          <Ionicons size={bDiameter} name={'ios-close'} color={'white'}
+            style={{
+              height: bDiameter
+            }}
+            />
+        </BlurView>
       </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    padding: 15
-  },
   vibrancy: {
-    height: 30,
-    width: 30,
-    borderRadius: 15
+    height: (bDiameter + 3),
+    width: (bDiameter + 3),
+    borderRadius: (bDiameter + 3)/2,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

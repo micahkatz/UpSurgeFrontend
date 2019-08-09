@@ -21,6 +21,8 @@ import {
   Transition
 } from 'react-navigation-fluid-transitions';
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import TopBar from '../comps/TopBar'
+
 
 export default class EvtFeed extends Component {
   constructor(props){
@@ -124,42 +126,12 @@ export default class EvtFeed extends Component {
   render() {
     return (
       <View>
-        <SafeAreaView
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-          >
-          <View
-            style={{
-              width: 35,
-              height: 35,
-              borderRadius: 35 /2,
-              backgroundColor: GLOBALS.grey,
-              margin: 5,
-              marginLeft: 10
-            }}
-            />
-          <Text
-            style={{
-              fontFamily: 'HelveticaNeue',
-              fontSize: 16,
-              fontWeight: 'bold'
-            }}
-            >
-            Home
-          </Text>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.push('NewEvt')}
-            style={{
-              margin: 5,
-              marginRight: 10
-            }}
-            >
-            <AntDesign name={'plus'} size={35} color={GLOBALS.grey}/>
-          </TouchableOpacity>
-        </SafeAreaView>
+        <TopBar
+          left={'PROFILE'}
+          right={'PLUS'}
+          rightPress={() => this.props.navigation.push('NewEvt')}
+          title={'Home'}
+          />
         <FlatList
           contentContainerStyle={{
             alignItems: 'center'
@@ -187,7 +159,7 @@ export default class EvtFeed extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <ActivityIndicator size={'large'} />
+                  
                 </View>
               )
             } else if (this.state.evtList.length > 0){

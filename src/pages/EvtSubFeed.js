@@ -31,9 +31,17 @@ export default class EvtSubFeed extends Component {
       loadingMore: false, // if the user has reached the bottom of the list
       noneLeft: false // if there are no more evts to render
     }
+    this.getRefreshing = this.getRefreshing.bind(this)
   }
   componentDidMount(){
     this.handleRefresh()
+    this.props.onRef(this)
+  }
+  getRefreshing(){
+    return this.state.refreshing
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
   }
   async handleRefresh() {
     this.setState({

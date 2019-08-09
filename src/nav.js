@@ -33,6 +33,7 @@ const AppNavigator = createStackNavigator({
 },
 {
   headerMode: 'none',
+  mode: 'modal',
   navigationOptions: {
     headerVisible: false,
   }
