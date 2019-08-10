@@ -130,14 +130,9 @@ export default class NewEvt extends Component {
               this.props.navigation.push('PickCats',{onFinished: this.onFinished})
             }}
             >
-            <View style={{
-                borderBottomWidth: 1,
-                borderColor: GLOBALS.grey,
-                paddingVertical: 15,
-                marginLeft: 20,
-              }}>
+            <View style={styles.textInput}>
               <Text style={{
-                  color: GLOBALS.secondaryTextColor,
+                  color: GLOBALS.grey,
                   fontFamily: 'HelveticaNeue'
                 }}>
                 Add Tags
@@ -149,10 +144,12 @@ export default class NewEvt extends Component {
     }
 
     return (
-      <SafeAreaView>
+      <View>
         <TopBar
           left={'CLOSE'}
           leftPress={this.props.navigation.pop}
+          right={'CHECK'}
+          rightPress={this.props.navigation.pop}
           />
         <View style={{
             flexDirection: 'row',
@@ -202,7 +199,7 @@ export default class NewEvt extends Component {
           placeholder={'Title'}
           maxLength={200}
           style={styles.textInput}
-          placeholderTextColor={GLOBALS.secondaryTextColor}
+          placeholderTextColor={GLOBALS.grey}
           onChangeText={(title) => {
             this.setState({title})
             this.validate()
@@ -222,7 +219,7 @@ export default class NewEvt extends Component {
           placeholder={'Add a description'}
           maxLength={200}
           style={styles.textInput}
-          placeholderTextColor={GLOBALS.secondaryTextColor}
+          placeholderTextColor={GLOBALS.grey}
           onChangeText={(desc) => {
             this.setState({desc})
             this.validate()
@@ -236,119 +233,8 @@ export default class NewEvt extends Component {
           }}
           returnKeyType={ "next" }
           />
-        <View style={styles.rulesContainer}>
-          {
-            this.state.rules.map((item, index) => {
-              return (
-                <View style={styles.rule}>
-                  <Text style={styles.ruleNumText}>
-                    {index + 1}.
-                  </Text>
-                  <TextInput
-                    key={index}
-
-                    placeholder={'New Rule'}
-                    maxLength={200}
-                    style={styles.indivRuleInput}
-                    placeholderTextColor={GLOBALS.secondaryTextColor}
-                    onChangeText={(text) => {
-                      let rules = [...this.state.rules];
-                      rules[index] = text
-                      this.setState({ rules });
-                    }}
-                    onSubmitEditing={(text) => {
-                      this.setState({
-                        rules: this.state.rules.concat([{ text }])
-                      });
-                      let key = 'rule'+((index + 2).toString())
-                      this.queueFocus = key
-                    }}
-                    blurOnSubmit={false}
-                    autoCorrect={false}
-                    selectionColor={GLOBALS.white}
-                    clearButtonMode={'while-editing'}
-                    multiline={false}
-                    ref={ input => {
-                      this.inputs[`rule${index + 1}`] = input;
-                    }}
-                    />
-                  <TouchableWithoutFeedback
-                    delayPressIn={0}
-                    onPress={() => {
-                      if ((index !== -1) && (this.state.rules.length > 1)) {
-                        var rules = [...this.state.rules]
-                        rules.splice(index, 1);
-                        this.setState({rules: []});
-                        this.setState({rules: rules});
-                      }
-                    }}
-                    >
-                    <View
-                      style={{
-                        flex: .1,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                      }}
-                      >
-                      <AntDesign
-                        name={'minuscircle'}
-                        size={25}
-                        color={GLOBALS.red}
-                        style={{
-                          opacity: (this.state.rules.length > 1) ? 1 : 0
-                        }}
-                        />
-                    </View>
-                  </TouchableWithoutFeedback>
-                </View>
-              )
-            })
-          }
-        </View>
         {renderSubCats()}
-        <View style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            padding: 50
-          }}>
-          <TouchableOpacity
-            onPress={() => this.setState({subType: 'IMG'})}
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Entypo
-              name={'camera'}
-              size={30}
-              color={(this.state.subType == 'IMG') ? GLOBALS.secondaryColor : GLOBALS.secondaryTextColor}
-              />
-            <Text style={{
-                color: (this.state.subType == 'IMG') ? GLOBALS.secondaryColor : GLOBALS.secondaryTextColor,
-                fontFamily: 'HelveticaNeue-Medium'
-              }}>
-              Image
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.setState({subType: 'VID'})}
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Entypo
-              name={'video-camera'}
-              size={30}
-              color={(this.state.subType == 'VID') ? GLOBALS.secondaryColor : GLOBALS.secondaryTextColor}
-              />
-            <Text style={{
-                color: (this.state.subType == 'VID') ? GLOBALS.secondaryColor : GLOBALS.secondaryTextColor,
-                fontFamily: 'HelveticaNeue-Medium'
-              }}>
-              Video
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -362,11 +248,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderBottomWidth: 1,
     borderColor: GLOBALS.grey,
-    width: Dimensions.get('screen').width,
-    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
     padding: 15,
+    marginHorizontal: 10,
     paddingHorizontal: 20,
     color: GLOBALS.white
   },
@@ -382,7 +267,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   ruleNumText: {
-    color: GLOBALS.secondaryTextColor,
+    color: GLOBALS.grey,
     flex: .075
   },
   rulesContainer: {
@@ -410,7 +295,7 @@ const styles = StyleSheet.create({
   },
   subCatText: {
     fontFamily: 'HelveticaNeue-Bold',
-    color: GLOBALS.secondaryTextColor,
+    color: GLOBALS.grey,
     fontSize: 16
   },
 });

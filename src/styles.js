@@ -17,5 +17,10 @@ exports.STYLES = StyleSheet.create({
     fontFamily: 'HelveticaNeue',
     fontSize: 30,
     fontWeight: 'bold'
+  },
+  button: {
+    backgroundColor: GLOBALS.red,
+    borderRadius: 10,
+    padding: 10
   }
 });

@@ -84,7 +84,7 @@ class TopBar extends Component {
                 borderRadius: 40 /2,
                 backgroundColor: GLOBALS.grey,
                 margin: 5,
-                marginLeft: 10
+                marginHorizontal: 10
               }}
               />
           )
@@ -96,7 +96,7 @@ class TopBar extends Component {
               onPress={() => this.handlePress(side)}
               style={{
                 margin: 5,
-                marginRight: 10
+                marginHorizontal: 10
               }}
               >
               <AntDesign name={'plus'} size={35} color={GLOBALS.grey}/>
@@ -110,7 +110,7 @@ class TopBar extends Component {
               onPress={() => this.handlePress(side)}
               style={{
                 margin: 5,
-                marginRight: 10
+                marginHorizontal: 10
               }}
               >
               <View
@@ -124,6 +124,38 @@ class TopBar extends Component {
                 }}
                 >
                 <AntDesign name={'form'} size={20} color={'black'}/>
+              </View>
+            </TouchableOpacity>
+          )
+          break;
+        case 'CHECK':
+          return (
+
+            <TouchableOpacity
+              onPress={() => this.handlePress(side)}
+              style={{
+                margin: 5,
+                marginHorizontal: 10
+              }}
+              >
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 40 /2,
+                  backgroundColor: GLOBALS.green,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                >
+                <Ionicons name={'ios-checkmark'} size={35} color={'white'}
+                  style={{
+                    height: 38,
+                    width: 14,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  />
               </View>
             </TouchableOpacity>
           )
@@ -144,7 +176,7 @@ class TopBar extends Component {
               {width: GLOBALS.screenWidth}
             ]}
             blurType="xlight"
-            blurAmount={50}
+            blurAmount={70}
             >
             <SafeAreaView
               style={[
@@ -167,7 +199,7 @@ class TopBar extends Component {
                 <View
                   style={[
                     styles.buttonWrapper,
-                    {marginRight: 12}
+                    {marginHorizontal: 12}
                   ]}
                   >
                   {renderButton('LEFT')}
@@ -209,7 +241,7 @@ class TopBar extends Component {
               <View
                 style={[
                   styles.buttonWrapper,
-                  {marginRight: 12}
+                  {marginHorizontal: 12}
                 ]}
                 >
                 {renderButton('LEFT')}

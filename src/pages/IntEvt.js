@@ -1,5 +1,5 @@
 /*
-  * IntEvt.js contains the Interior event page
+* IntEvt.js contains the Interior event page
 */
 
 import React, { Component } from 'react';
@@ -11,7 +11,8 @@ import {
   Button,
   SafeAreaView,
   ScrollView,
-  RefreshControl
+  RefreshControl,
+  TouchableOpacity
 } from 'react-native';
 import {GLOBALS} from '../globals'
 import {STYLES} from '../styles'
@@ -69,32 +70,56 @@ class IntEvt extends Component {
                 />
             </Transition>
           </View>
+
           <View
             style={{
               position: 'absolute',
               bottom: 0,
-              width: GLOBALS.extEvtWidth * .7,
+              width: GLOBALS.screenWidth,
               padding: 20
             }}
             >
-            <Transition shared={item.eid + '-title'}>
-              <Text
-                style={STYLES.evtTitle}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                justifyContent: 'space-between'
+              }}
+              >
+              <View>
+                <Transition shared={item.eid + '-title'}>
+                  <Text
+                    style={STYLES.evtTitle}
+                    >
+                    {item.title.toUpperCase()}
+                  </Text>
+                </Transition>
+                <Transition appear={FadeIn}>
+                  <Text
+                    style={{
+                      color: '#e2e2e2',
+                      fontSize: 16,
+                      fontWeight: 'bold'
+                    }}
+                    >
+                    {item.numSubs} Posts - {item.cat}
+                  </Text>
+                </Transition>
+              </View>
+              <TouchableOpacity
+                style={STYLES.button}
                 >
-                {item.title.toUpperCase()}
-              </Text>
-            </Transition>
-            <Transition appear={FadeIn}>
-              <Text
-                style={{
-                  color: '#e2e2e2',
-                  fontSize: 16,
-                  fontWeight: 'bold'
-                }}
-                >
-                {item.numSubs} Posts - {item.cat}
-              </Text>
-            </Transition>
+                <Text
+                  style={{
+                    fontFamily: 'HelveticaNeue',
+                    fontWeight: 'bold',
+                    color: GLOBALS.white
+                  }}
+                  >
+                  POST
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
         <View

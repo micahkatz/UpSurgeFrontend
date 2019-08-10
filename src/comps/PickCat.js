@@ -12,8 +12,9 @@ import {
 } from 'react-native';
 import {GLOBALS} from '../globals';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import TopBar from '../comps/TopBar'
 
-class PickSubCat extends Component {
+export default class PickSubCat extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -29,7 +30,7 @@ class PickSubCat extends Component {
         {
           title: 'GAMING',
           pressed: false,
-          color: GLOBALS.secondaryColor,
+          color: GLOBALS.blue,
           key: '2'
         },
         {
@@ -47,7 +48,7 @@ class PickSubCat extends Component {
         {
           title: 'COMEDY',
           pressed: false,
-          color: GLOBALS.secondaryColor,
+          color: GLOBALS.blue,
           key: '5'
         },
         {
@@ -65,7 +66,7 @@ class PickSubCat extends Component {
         {
           title: 'HEALTH',
           pressed: false,
-          color: GLOBALS.secondaryColor,
+          color: GLOBALS.blue,
           key: '8'
         },
         {
@@ -83,7 +84,7 @@ class PickSubCat extends Component {
         {
           title: 'ANIMALS',
           pressed: false,
-          color: GLOBALS.secondaryColor,
+          color: GLOBALS.blue,
           key: '11'
         },
         {
@@ -121,8 +122,14 @@ class PickSubCat extends Component {
   }
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <View>
+          <TopBar
+            left={'CLOSE'}
+            right={'CHECK'}
+            leftPress={this.props.navigation.pop}
+            rightPress={this.props.navigation.pop}
+            />
           <Text style={styles.title}>
             Tag Your Event
           </Text>
@@ -166,7 +173,7 @@ class PickSubCat extends Component {
                         <TouchableOpacity
                           key={item.key}
                           style={[styles.subCat, {
-                            backgroundColor: (item.pressed) ? GLOBALS.secondaryColor : GLOBALS.grey,
+                            backgroundColor: (item.pressed) ? GLOBALS.blue : GLOBALS.lightGrey,
                           }]}
                           onPress={() => {
                             if(item.pressed == true){
@@ -189,7 +196,7 @@ class PickSubCat extends Component {
                           }}
                           >
                           <Text style={[styles.subCatText, {
-                              color: (item.pressed) ? GLOBALS.grey : GLOBALS.secondaryTextColor
+                              color: (item.pressed) ? GLOBALS.white : GLOBALS.black
                             }]}>{item.title}</Text>
                           </TouchableOpacity>
                         )
@@ -208,7 +215,7 @@ class PickSubCat extends Component {
                           <TouchableOpacity
                             key={item.key}
                             style={[styles.subCat, {
-                              backgroundColor: (item.pressed) ? GLOBALS.secondaryColor : GLOBALS.grey,
+                              backgroundColor: (item.pressed) ? GLOBALS.blue : GLOBALS.lightGrey,
                             }]}
                             onPress={() => {
                               if(item.pressed == true){
@@ -230,7 +237,7 @@ class PickSubCat extends Component {
                             }}
                             >
                             <Text style={[styles.subCatText, {
-                                color: (item.pressed) ? GLOBALS.grey : GLOBALS.secondaryTextColor
+                                color: (item.pressed) ? GLOBALS.lightGrey : GLOBALS.secondaryTextColor
                               }]}>{item.title}</Text>
                             </TouchableOpacity>
                           )
@@ -241,7 +248,7 @@ class PickSubCat extends Component {
                 </View>
               </View>
             </ScrollView>
-          </SafeAreaView>
+          </View>
         );
       }
     }
@@ -249,8 +256,7 @@ class PickSubCat extends Component {
     const styles = StyleSheet.create({
       container: {
         flex: 1,
-        justifyContent: 'center',
-        backgroundColor: GLOBALS.backgroundColor
+        alignItems: 'center'
       },
       title: {
         color: 'white',
@@ -275,19 +281,19 @@ class PickSubCat extends Component {
       searchBar: {
         flexDirection: 'row',
         alignItems: 'center',
+        alignSelf: 'center',
         width: Dimensions.get('screen').width * .9,
-        backgroundColor: GLOBALS.grey,
+        backgroundColor: GLOBALS.lightGrey,
         borderRadius: 10,
         paddingLeft: 10,
         opacity: 0.8,
-        height: GLOBALS.headerHeight,
-        marginTop: 30,
+        height: 50,
         marginBottom: 20,
         color: GLOBALS.white
 
       },
       nextButton: {
-        backgroundColor: GLOBALS.secondaryColor,
+        backgroundColor: GLOBALS.blue,
         height: 50,
         width: Dimensions.get('screen').width * .9,
         justifyContent: 'center',
@@ -296,10 +302,8 @@ class PickSubCat extends Component {
         borderRadius: 10
       },
       nextText: {
-        color: GLOBALS.grey,
+        color: GLOBALS.lightGrey,
         fontSize: 22,
         fontFamily: 'HelveticaNeue-Bold'
       },
     });
-
-    module.exports = PickSubCat;

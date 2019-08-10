@@ -17,4 +17,10 @@ exports.GLOBALS = {
   lightGrey: '#f2f1f1',
   darkGrey: '#505050',
   grey: '#909090',
+  black: 'black',
+  white: 'white',
+  green: '#3bceac',
+  blue: '#256eff',
+  red: '#ee4266',
+  purple: '#540d6e'
 }
