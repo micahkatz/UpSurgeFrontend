@@ -15,7 +15,7 @@ exports.STYLES = StyleSheet.create({
   },
   pgTitle: {
     fontFamily: 'HelveticaNeue',
-    fontSize: 16,
+    fontSize: 30,
     fontWeight: 'bold'
   }
 });

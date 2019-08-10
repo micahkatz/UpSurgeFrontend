@@ -126,15 +126,12 @@ export default class EvtFeed extends Component {
   render() {
     return (
       <View>
-        <TopBar
-          left={'PROFILE'}
-          right={'PLUS'}
-          rightPress={() => this.props.navigation.push('NewEvt')}
-          title={'Home'}
-          />
         <FlatList
           contentContainerStyle={{
             alignItems: 'center'
+          }}
+          style={{
+            paddingTop: GLOBALS.headerHeight
           }}
           data={this.state.evtList}
           keyExtractor = {(item, index) => item.eid}
@@ -159,7 +156,7 @@ export default class EvtFeed extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  
+
                 </View>
               )
             } else if (this.state.evtList.length > 0){
@@ -189,6 +186,17 @@ export default class EvtFeed extends Component {
           }}
           >
         </FlatList>
+        <TopBar
+          left={'PROFILE'}
+          right={'POST'}
+          rightPress={() => this.props.navigation.push('NewEvt')}
+          title={'Home'}
+          blur
+          style={{
+            position: 'absolute',
+            top: 0
+          }}
+          />
       </View>
     );
   }

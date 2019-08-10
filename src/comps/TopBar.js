@@ -24,6 +24,7 @@ import {FadeIn, FadeOut} from '../animations'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import CloseButton from './CloseButton'
+import { BlurView } from "@react-native-community/blur";
 var iconColor = GLOBALS.grey
 import {
   Transition
@@ -78,9 +79,9 @@ class TopBar extends Component {
           return (
             <View
               style={{
-                width: 35,
-                height: 35,
-                borderRadius: 35 /2,
+                width: 40,
+                height: 40,
+                borderRadius: 40 /2,
                 backgroundColor: GLOBALS.grey,
                 margin: 5,
                 marginLeft: 10
@@ -102,6 +103,31 @@ class TopBar extends Component {
             </TouchableOpacity>
           )
           break;
+        case 'POST':
+          return (
+
+            <TouchableOpacity
+              onPress={() => this.handlePress(side)}
+              style={{
+                margin: 5,
+                marginRight: 10
+              }}
+              >
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 40 /2,
+                  backgroundColor: GLOBALS.lightGrey,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                >
+                <AntDesign name={'form'} size={20} color={'black'}/>
+              </View>
+            </TouchableOpacity>
+          )
+          break;
         default:
           return (
             <View style={styles.none}/>
@@ -109,34 +135,97 @@ class TopBar extends Component {
           break;
       }
     }
-    return (
-      <Transition appear={FadeIn} disappear={FadeOut}>
-        <SafeAreaView
-          style={[
-            this.props.style,
-            {
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: GLOBALS.screenWidth
-            }
-          ]}
-          >
-          <View
-            style={styles.buttonWrapper}
+    if(this.props.blur){
+      return (
+        <Transition appear={FadeIn} disappear={FadeOut}>
+          <BlurView
+            style={[
+              this.props.style,
+              {width: GLOBALS.screenWidth}
+            ]}
+            blurType="xlight"
+            blurAmount={50}
             >
-            {renderButton('LEFT')}
-          </View>
-          {renderTitle()}
-          <View
-            style={styles.buttonWrapper}
-            >
-            {renderButton('RIGHT')}
-          </View>
+            <SafeAreaView
+              style={[
+                {
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  width: GLOBALS.screenWidth,
+                  height: GLOBALS.headerHeight
+                }
+              ]}
+              >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                >
+                <View
+                  style={[
+                    styles.buttonWrapper,
+                    {marginRight: 12}
+                  ]}
+                  >
+                  {renderButton('LEFT')}
+                </View>
+                {renderTitle()}
+              </View>
+              <View
+                style={styles.buttonWrapper}
+                >
+                {renderButton('RIGHT')}
+              </View>
 
-        </SafeAreaView>
-      </Transition>
-    );
+            </SafeAreaView>
+          </BlurView>
+        </Transition>
+      );
+    } else {
+      return (
+        <Transition appear={FadeIn} disappear={FadeOut}>
+          <SafeAreaView
+            style={[
+              this.props.style,
+              {
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: GLOBALS.screenWidth,
+                height: GLOBALS.headerHeight
+              }
+            ]}
+            >
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              >
+              <View
+                style={[
+                  styles.buttonWrapper,
+                  {marginRight: 12}
+                ]}
+                >
+                {renderButton('LEFT')}
+              </View>
+              {renderTitle()}
+            </View>
+            <View
+              style={styles.buttonWrapper}
+              >
+              {renderButton('RIGHT')}
+            </View>
+
+          </SafeAreaView>
+        </Transition>
+      );
+    }
   }
 }
 
