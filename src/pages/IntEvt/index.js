@@ -14,14 +14,14 @@ import {
   RefreshControl,
   TouchableOpacity
 } from 'react-native';
-import {GLOBALS} from '../globals'
-import {STYLES} from '../styles'
-import {FadeIn, FadeOut} from '../animations'
-import CloseButton from '../comps/CloseButton'
+import {GLOBALS} from 'src/globals'
+import {STYLES} from 'src/styles'
+import {FadeIn, FadeOut} from 'src/animations'
+import CloseButton from 'src/comps/CloseButton'
 import EvtSubFeed from './EvtSubFeed';
-import {GetIMG} from '../funcs/media'
-import Gradient from '../comps/Gradient'
-import TopBar from '../comps/TopBar'
+import {GetIMG} from 'src/funcs/media'
+import Gradient from 'src/comps/Gradient'
+import TopBar from 'src/comps/TopBar'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';

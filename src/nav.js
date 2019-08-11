@@ -9,8 +9,9 @@ import EvtFeedScreen from './pages/EvtFeed'
 import ExampleFuncs from './pages/ExampleFuncs'
 import IntEvtScreen from './pages/IntEvt'
 import ProfileScreen from './pages/Profile'
+import MyProfileScreen from './pages/MyProfile'
 import NewEvtPg from './pages/NewEvt'
-import PickCatPg from './comps/PickCat'
+import PickCatPg from './pages/PickCat'
 import {
   createFluidNavigator,
   Transition
@@ -29,7 +30,8 @@ const EvtStack = createFluidNavigator({
 const AppNavigator = createStackNavigator({
   Main: EvtStack,
   NewEvt: NewEvtPg,
-  PickCats: PickCatPg
+  PickCats: PickCatPg,
+  MyProfile: MyProfileScreen
 },
 {
   headerMode: 'none',

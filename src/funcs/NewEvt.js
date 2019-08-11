@@ -3,15 +3,15 @@ const uuidv4 = require('uuid/v4'); // used for generating a unique id
 import {GetUID} from './auth'; // imports the GetUID func
 import {UploadImg, PickImg} from './media'
 // creates a new event by uploading the data to AWS
-exports.NewActEvt = async () => {
+exports.NewActEvt = async (evtData, imgPath, imgMime) => {
 
 
   // the data being inserted into the DB
   let config = {
     body: {
       eid: uuidv4(), // generates unique evtID
-      title: "Nitay's Event", // TODO: the user inputs title
-      desc: 'Just an event from Nitay', // TODO: the user inputs desc
+      title: evtData.title, // TODO: the user inputs title
+      desc: evtData.desc, // TODO: the user inputs desc
       ts: new Date(), // calculates the seconds
       uid: await GetUID(), // retrieves User Id from storage
       cat: 'MUSIC', // TODO: the user inputs their categories
@@ -28,9 +28,7 @@ exports.NewActEvt = async () => {
     API.put(apiName, apiPath, config)
     .then((apiResponse) => {
       console.log('response from insert event: ' + JSON.stringify(apiResponse));
-      PickImg().then((image) => {
-        UploadImg(image, config.body.eid)
-      })
+      UploadImg(imgPath, imgMime, config.body.eid)
     })
   } catch (e) {
     console.log(e);

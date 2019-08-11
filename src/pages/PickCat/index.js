@@ -10,9 +10,9 @@ import {
   SafeAreaView,
   Alert
 } from 'react-native';
-import {GLOBALS} from '../globals';
+import {GLOBALS} from 'src/globals';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import TopBar from '../comps/TopBar'
+import TopBar from 'src/comps/TopBar'
 
 export default class PickSubCat extends Component {
   constructor(props){

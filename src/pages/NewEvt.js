@@ -16,6 +16,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
 import CropImg from 'react-native-image-crop-picker';
 import {GLOBALS} from '../globals'
+import {PickImg} from '../funcs/media'
+import {NewActEvt} from '../funcs/NewEvt'
 import CloseButton from '../comps/CloseButton'
 import TopBar from '../comps/TopBar';
 export default class NewEvt extends Component {
@@ -32,15 +34,16 @@ export default class NewEvt extends Component {
       ddOpen: false,
       compType: 'ACT',
       subType: 'IMG',
-      base64Data: '',
+      imgPath: null,
+      imgMime: null,
       subCats: [],
-      isActValidated: false
+      isActValidated: false,
+      alert: ''
     }
     this.inputs = {}
     this.queueFocus = null
     this.validate = this.validate.bind(this)
     this.onFinished = this.onFinished.bind(this)
-    this.newPost = this.newPost.bind(this)
   }
   componentDidUpdate(){
     if(this.queueFocus != null){
@@ -48,26 +51,24 @@ export default class NewEvt extends Component {
       this.queueFocus = null
     }
   }
-  newPost(){
-    if(this.state.isActValidated){
-      let meta = {
-        desc: this.state.desc,
-        title: this.state.title,
-        rules: this.state.rules,
-        compType: this.state.compType,
-        timestamp: new Date(),
-        postedBy: this.props.store.username,
-        _uid: this.props.store.userID,
-        subCat: this.state.subCats[0]
-      }
-      this.props.store.newEvt(meta)
-    }
-  }
   validate(){
-    if(((this.state.title.length > 1) && (this.state.compType.length > 1)) && (this.state.subType.length > 1)){
-      this.state.isActValidated = true
+    if(this.state.title.length < 1){
+      this.setState({
+        alert: 'Oops! You forgot to put a title'
+      })
+      return false
+    } else if (this.state.desc.length < 1){
+      this.setState({
+        alert: 'Oops! You forgot to put a description'
+      })
+      return false
+    } else if (this.state.imgPath == null){
+      this.setState({
+        alert: 'Oops! You forgot to select an image'
+      })
+      return false
     } else {
-      this.state.isActValidated = false
+      return true
     }
   }
   onFinished(subCats){
@@ -75,12 +76,12 @@ export default class NewEvt extends Component {
   }
   render() {
     var renderThumbnail = () => {
-      if(this.state.base64Data.length != 0) {
+      if(this.state.imgPath) {
         return (
           <Image
             style={styles.thumbnail}
             source={{
-              uri: this.state.base64Data
+              uri: this.state.imgPath
             }}
           />
         )
@@ -148,8 +149,16 @@ export default class NewEvt extends Component {
         <TopBar
           left={'CLOSE'}
           leftPress={this.props.navigation.pop}
-          right={'CHECK'}
-          rightPress={this.props.navigation.pop}
+          right={'UPLOAD'}
+          rightPress={() => {
+            if(this.validate()){
+              NewActEvt({
+                title: this.state.title,
+                desc: this.state.desc
+              },this.state.imgPath, this.state.imgMime)
+              .then(this.props.navigation.pop)
+            }
+          }}
           />
         <View style={{
             flexDirection: 'row',
@@ -161,18 +170,12 @@ export default class NewEvt extends Component {
             }}>
             <TouchableOpacity
               onPress={() => {
-                CropImg.openPicker({
-                  width: GLOBALS.evtPosterHeight,
-                  height: GLOBALS.evtPosterWidth,
-                  cropping: true,
-                  includeBase64: true,
-                  compressImageQuality: 1
-                })
-                .then(image => {
-                  this.setState({
-                    base64Data: `data:${image.mime};base64,${image.data}`
-                  });
-                });
+                  PickImg().then((image) => {
+                    this.setState({
+                      imgMime: image.mime,
+                      imgPath: image.path
+                    })
+                  })
               }}
               style={[styles.thumbnail, {
                 marginHorizontal: 20
@@ -183,17 +186,26 @@ export default class NewEvt extends Component {
                   justifyContent: 'center',
                   alignItems: 'center',
                   position: 'absolute',
-                  opacity: (this.state.base64Data.length > 1) ? 0 : 1
+                  opacity: (this.state.imgPath) ? 0 : 1
                 }]}>
                 <MaterialIcons
                   name={'add-a-photo'}
-                  size={35}
+                  size={50}
                   color={GLOBALS.grey}
                   />
               </View>
             </TouchableOpacity>
           </View>
         </View>
+        <Text
+          style={{
+            color: GLOBALS.red,
+            fontFamily: 'HelveticaNeue',
+            alignSelf: 'center'
+          }}
+          >
+          {this.state.alert}
+        </Text>
         <TextInput
 
           placeholder={'Title'}
@@ -202,10 +214,9 @@ export default class NewEvt extends Component {
           placeholderTextColor={GLOBALS.grey}
           onChangeText={(title) => {
             this.setState({title})
-            this.validate()
           }}
           autoCorrect={false}
-          selectionColor={GLOBALS.white}
+          selectionColor={GLOBALS.black}
           clearButtonMode={'while-editing'}
           multiline={false}
           ref={ input => {
@@ -222,10 +233,9 @@ export default class NewEvt extends Component {
           placeholderTextColor={GLOBALS.grey}
           onChangeText={(desc) => {
             this.setState({desc})
-            this.validate()
           }}
           autoCorrect={false}
-          selectionColor={GLOBALS.white}
+          selectionColor={GLOBALS.black}
           clearButtonMode={'while-editing'}
           multiline
           ref={ input => {
@@ -249,11 +259,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: GLOBALS.grey,
     flexDirection: 'row',
+    alignSelf: 'center',
     alignItems: 'center',
     padding: 15,
-    marginHorizontal: 10,
     paddingHorizontal: 20,
-    color: GLOBALS.white
+    width: GLOBALS.extEvtWidth,
+    color: GLOBALS.black
   },
   indivRuleInput: {
     flex: 1,
@@ -277,10 +288,11 @@ const styles = StyleSheet.create({
     paddingVertical: 5
   },
   thumbnail: {
-    borderRadius: 10,
-    height: 75,
-    width: 75,
-    backgroundColor: '#454545'
+    borderRadius: 15,
+    height: GLOBALS.extEvtHeight,
+    width: GLOBALS.extEvtWidth,
+    backgroundColor: GLOBALS.lightGrey,
+    marginBottom: 15
   },
   subCat: {
     backgroundColor: GLOBALS.grey,

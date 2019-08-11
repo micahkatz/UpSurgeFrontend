@@ -13,7 +13,7 @@ exports.GLOBALS = {
   extEvtHeight : Dimensions.get('window').width * 1.1,
   extSubWidth : Dimensions.get('window').width * .3,
   extSubHeight : Dimensions.get('window').width * .5,
-  headerHeight: 110,
+  headerHeight: 80,
   lightGrey: '#f2f1f1',
   darkGrey: '#505050',
   grey: '#909090',

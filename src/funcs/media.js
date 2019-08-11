@@ -6,7 +6,7 @@ exports.GetIMG = async (fileName) => {
 };
 
 
-exports.UploadImg = async (image, eid) => {
+exports.UploadImg = async (path, mime, eid) => {
   let uri = image.path
   const response = await fetch(uri)
   const blob = await response.blob() // format the data for images
@@ -36,7 +36,7 @@ exports.PickVid = async () => {
 exports.UploadVid = async (video, sid) => {
   let uri = video.path
   const response = await fetch(uri)
-  const blob = await response.blob() 
+  const blob = await response.blob()
   Storage.put(sid + '.mp4', blob, {
     contentType: video.mime
   })

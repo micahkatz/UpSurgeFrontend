@@ -12,10 +12,10 @@ import {
   SafeAreaView,
   ActivityIndicator
 } from 'react-native';
-import ExtSub from '../comps/ExtSub';
-import {GLOBALS} from '../globals'
-import {GetEvtSubs} from '../funcs/subFeed'
-import NothingYet from '../comps/nothingYet'
+import ExtSub from 'src/comps/ExtSub';
+import {GLOBALS} from 'src/globals'
+import {GetEvtSubs} from 'src/funcs/subFeed'
+import NothingYet from 'src/comps/nothingYet'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
@@ -139,7 +139,7 @@ export default class EvtSubFeed extends Component {
           )
         }}
         numColumns={3}
-        refreshing={this.state.refreshing}
+        refreshing={false}
         showsHorizontalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
         bouncesZoom={true}

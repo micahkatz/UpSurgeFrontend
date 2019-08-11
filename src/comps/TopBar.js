@@ -31,20 +31,6 @@ import {
 } from 'react-navigation-fluid-transitions';
 
 class TopBar extends Component {
-  constructor(props){
-    super(props)
-    iconColor = this.getIconColor(props.iconColor)
-    this.state = {
-      decompressedImg: false
-    }
-  }
-  getIconColor(color) {
-    if(color){
-      return color
-    } else {
-      return GLOBALS.textColor
-    }
-  }
   handlePress(side){
     if(side == 'LEFT'){
       this.props.leftPress()
@@ -77,16 +63,24 @@ class TopBar extends Component {
           break;
         case 'PROFILE':
           return (
-            <View
+            <TouchableOpacity
+              onPress={() => this.handlePress(side)}
               style={{
-                width: 40,
-                height: 40,
-                borderRadius: 40 /2,
-                backgroundColor: GLOBALS.grey,
                 margin: 5,
                 marginHorizontal: 10
               }}
-              />
+              >
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 40 /2,
+                  backgroundColor: GLOBALS.grey,
+                  margin: 5,
+                  marginHorizontal: 10
+                }}
+                />
+            </TouchableOpacity>
           )
           break;
         case 'PLUS':
@@ -100,6 +94,30 @@ class TopBar extends Component {
               }}
               >
               <AntDesign name={'plus'} size={35} color={GLOBALS.grey}/>
+            </TouchableOpacity>
+          )
+          break;
+        case 'UPLOAD':
+          return (
+            <TouchableOpacity
+              onPress={() => this.handlePress(side)}
+              style={{
+                margin: 5,
+                marginHorizontal: 10
+              }}
+              >
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 40 /2,
+                  backgroundColor: GLOBALS.blue,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                >
+                <AntDesign name={'clouduploado'} size={25} color={GLOBALS.white}/>
+              </View>
             </TouchableOpacity>
           )
           break;
@@ -177,6 +195,10 @@ class TopBar extends Component {
             ]}
             blurType="xlight"
             blurAmount={70}
+            onLayout={(event) => {
+              var {x, y, width, height} = event.nativeEvent.layout;
+              GLOBALS.headerHeight = height
+            }}
             >
             <SafeAreaView
               style={[
@@ -184,8 +206,7 @@ class TopBar extends Component {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  width: GLOBALS.screenWidth,
-                  height: GLOBALS.headerHeight
+                  width: GLOBALS.screenWidth
                 }
               ]}
               >
@@ -226,10 +247,13 @@ class TopBar extends Component {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                width: GLOBALS.screenWidth,
-                height: GLOBALS.headerHeight
+                width: GLOBALS.screenWidth
               }
             ]}
+            onLayout={(event) => {
+              var {x, y, width, height} = event.nativeEvent.layout;
+              GLOBALS.headerHeight = height
+            }}
             >
             <View
               style={{

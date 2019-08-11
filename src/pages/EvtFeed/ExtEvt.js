@@ -10,13 +10,13 @@ import {
   Image,
   TouchableWithoutFeedback
 } from 'react-native';
-import {GLOBALS} from '../globals'
-import {FadeIn, FadeOut} from '../animations'
-import {STYLES} from '../styles'
-import {GetIMG} from '../funcs/media'
-import {getTimestamp} from '../funcs/common'
+import {GLOBALS} from 'src/globals'
+import {FadeIn, FadeOut} from 'src/animations'
+import {STYLES} from 'src/styles'
+import {GetIMG} from 'src/funcs/media'
+import {getTimestamp} from 'src/funcs/common'
 import { BlurView } from "@react-native-community/blur";
-import Gradient from '../comps/Gradient'
+import Gradient from 'src/comps/Gradient'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
@@ -51,8 +51,6 @@ class ExtEvt extends Component {
           >
           <View
             style={{
-              borderRadius: 15,
-              overflow: 'hidden',
               height: GLOBALS.extEvtHeight,
               width: GLOBALS.extEvtWidth,
               marginVertical: 10,
@@ -62,7 +60,11 @@ class ExtEvt extends Component {
             <View>
               <Transition shared={this.props.item.eid}>
                 <Image
-                  style={{ height: GLOBALS.extEvtHeight, width: GLOBALS.extEvtWidth}}
+                  style={{
+                    height: GLOBALS.extEvtHeight,
+                    width: GLOBALS.extEvtWidth,
+                    borderRadius: 15
+                  }}
                   source={{ uri: this.state.imgUri}}
                   />
               </Transition>
@@ -108,6 +110,8 @@ class ExtEvt extends Component {
                     <BlurView
                       style={{
                         width: GLOBALS.extEvtWidth,
+                        borderBottomLeftRadius:15,
+                        borderBottomRightRadius:15,
                       }}
                       blurType="xlight"
                       blurAmount={50}

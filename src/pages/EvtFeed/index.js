@@ -13,16 +13,15 @@ import {
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native';
-import ExtEvt from '../comps/ExtEvt';
-import {GLOBALS} from '../globals'
-import NothingYet from '../comps/nothingYet'
-import {FetchEvts} from '../funcs/evtFeed'
+import ExtEvt from './ExtEvt';
+import {GLOBALS} from 'src/globals'
+import NothingYet from 'src/comps/nothingYet'
+import {FetchEvts} from 'src/funcs/evtFeed'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import TopBar from '../comps/TopBar'
-
+import TopBar from 'src/comps/TopBar'
 
 export default class EvtFeed extends Component {
   constructor(props){
@@ -189,6 +188,7 @@ export default class EvtFeed extends Component {
         <TopBar
           left={'PROFILE'}
           right={'POST'}
+          leftPress={() => this.props.navigation.push('MyProfile')}
           rightPress={() => this.props.navigation.push('NewEvt')}
           title={'Home'}
           blur
