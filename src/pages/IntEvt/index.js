@@ -20,8 +20,10 @@ import {FadeIn, FadeOut} from 'src/animations'
 import CloseButton from 'src/comps/CloseButton'
 import EvtSubFeed from './EvtSubFeed';
 import {GetIMG} from 'src/funcs/media'
+import {NewSub} from 'src/funcs/NewSub'
 import Gradient from 'src/comps/Gradient'
 import TopBar from 'src/comps/TopBar'
+import TagFeed from 'src/comps/TagFeed'
 import {
   Transition
 } from 'react-navigation-fluid-transitions';
@@ -102,12 +104,13 @@ class IntEvt extends Component {
                       fontWeight: 'bold'
                     }}
                     >
-                    {item.numSubs} Posts - {item.cat}
+                    {item.numSubs} {(item.numSubs == 1) ? 'Post' : 'Posts'}
                   </Text>
                 </Transition>
               </View>
               <TouchableOpacity
                 style={STYLES.button}
+                onPress={() => NewSub(item.eid)}
                 >
                 <Text
                   style={{
@@ -122,6 +125,24 @@ class IntEvt extends Component {
             </View>
           </View>
         </View>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: 'bold',
+            color: GLOBALS.grey,
+            marginTop: 20,
+            marginHorizontal: 20,
+          }}
+          >
+          Tags
+        </Text>
+        <TagFeed
+          data={item.tags}
+          style={{
+            alignSelf: 'center',
+            height: 80
+          }}
+          />
         <View
           style={{
             padding: 20

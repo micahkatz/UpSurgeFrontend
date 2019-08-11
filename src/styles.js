@@ -22,5 +22,14 @@ exports.STYLES = StyleSheet.create({
     backgroundColor: GLOBALS.red,
     borderRadius: 10,
     padding: 10
+  },
+  tagContainer: {
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: GLOBALS.screenWidth * .45
+  },
+  boldText: {
+    fontFamily: 'HelveticaNeue-Bold'
   }
 });

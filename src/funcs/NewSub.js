@@ -8,7 +8,7 @@ exports.NewSub = async (eid) => {
   // the data being inserted into the DB
   let config = {
     body: {
-      eid: eid,
+      eid,
       ts: Math.round((new Date()).getTime() / 1000), // calculates the seconds
       uid: await GetUID(), // retrieves User Id from storage
       sid: uuidv4()

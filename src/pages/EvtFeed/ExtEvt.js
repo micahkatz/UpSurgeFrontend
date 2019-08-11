@@ -45,7 +45,7 @@ class ExtEvt extends Component {
           onPress={() => {
             this.props.navigation.push('IntEvt', {
               imgUri: this.state.imgUri,
-              item: {...this.props.item, numSubs: '321'}
+              item: this.props.item
             })
           }}
           >
@@ -141,7 +141,7 @@ class ExtEvt extends Component {
                               fontWeight: 'bold'
                             }}
                             >
-                            321 Posts
+                            {this.props.item.numSubs} {(this.props.item.numSubs == 1) ? 'Post' : 'Posts'}
                           </Text>
                           <Text
                             style={{

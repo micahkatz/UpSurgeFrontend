@@ -3,7 +3,7 @@ const uuidv4 = require('uuid/v4'); // used for generating a unique id
 import {GetUID} from './auth'; // imports the GetUID func
 import {UploadImg, PickImg} from './media'
 // creates a new event by uploading the data to AWS
-exports.NewActEvt = async (evtData, imgPath, imgMime) => {
+exports.NewActEvt = async (evtData, imgPath, imgMime, tags) => {
 
 
   // the data being inserted into the DB
@@ -14,7 +14,7 @@ exports.NewActEvt = async (evtData, imgPath, imgMime) => {
       desc: evtData.desc, // TODO: the user inputs desc
       ts: new Date(), // calculates the seconds
       uid: await GetUID(), // retrieves User Id from storage
-      cat: 'MUSIC', // TODO: the user inputs their categories
+      tags: evtData.tags, // TODO: the user inputs their categories
       evtType: 'ACT'
     }
   }

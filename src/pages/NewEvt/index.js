@@ -9,35 +9,29 @@ import {
   Dimensions,
   ScrollView,
   Image,
-  SafeAreaView
+  SafeAreaView,
+  FlatList
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
 import CropImg from 'react-native-image-crop-picker';
-import {GLOBALS} from '../globals'
-import {PickImg} from '../funcs/media'
-import {NewActEvt} from '../funcs/NewEvt'
-import CloseButton from '../comps/CloseButton'
-import TopBar from '../comps/TopBar';
+import {GLOBALS} from 'src/globals'
+import {PickImg} from 'src/funcs/media'
+import {NewActEvt} from 'src/funcs/NewEvt'
+import CloseButton from 'src/comps/CloseButton'
+import TopBar from 'src/comps/TopBar';
+import TagFeed from 'src/comps/TagFeed'
+
 export default class NewEvt extends Component {
   constructor(props){
     super(props)
     this.state = {
       desc: '',
       title: '',
-      rules: [
-        {
-          text: ''
-        }
-      ],
-      ddOpen: false,
-      compType: 'ACT',
-      subType: 'IMG',
       imgPath: null,
       imgMime: null,
       subCats: [],
-      isActValidated: false,
       alert: ''
     }
     this.inputs = {}
@@ -67,6 +61,11 @@ export default class NewEvt extends Component {
         alert: 'Oops! You forgot to select an image'
       })
       return false
+    } else if (this.state.subCats.length < 1){
+      this.setState({
+        alert: 'Oops! You forgot to tag your event'
+      })
+      return false
     } else {
       return true
     }
@@ -90,38 +89,14 @@ export default class NewEvt extends Component {
     var renderSubCats = () => {
       if(this.state.subCats.length > 0) {
         return (
-          <View
+          <TagFeed
             style={{
-              borderBottomWidth: 1,
-              borderColor: GLOBALS.grey,
               paddingVertical: 15,
               paddingLeft: 20,
-              height: 100
-            }}>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              style={{
-                flex: 1
-              }}
-              contentContainerStyle={{
-                padding: 5
-              }}
-              >
-              {
-                this.state.subCats.map((item, index) => {
-                  return (
-                    <TouchableOpacity
-                      onPress={() => this.props.navigation.push('PickCats',{subCats: this.state.subCats, onFinished: this.onFinished})}
-                      key={`${item}-${index}`}
-                      style={styles.subCat}>
-                      <Text style={styles.subCatText} key={`${item}-${index}`}>{item}</Text>
-                    </TouchableOpacity>
-                  )
-                })}
-              </ScrollView>
-            </View>
+            }}
+            data={this.state.subCats}
+            onPress={() => this.props.navigation.push('PickCats',{onFinished: this.onFinished})}
+            />
         )
       } else {
         return (
@@ -152,9 +127,11 @@ export default class NewEvt extends Component {
           right={'UPLOAD'}
           rightPress={() => {
             if(this.validate()){
+              let tags = this.state.subCats.map(item => item.title);
               NewActEvt({
                 title: this.state.title,
-                desc: this.state.desc
+                desc: this.state.desc,
+                tags
               },this.state.imgPath, this.state.imgMime)
               .then(this.props.navigation.pop)
             }
@@ -280,12 +257,6 @@ const styles = StyleSheet.create({
   ruleNumText: {
     color: GLOBALS.grey,
     flex: .075
-  },
-  rulesContainer: {
-    borderBottomWidth: 1,
-    borderColor: GLOBALS.grey,
-    padding: 10,
-    paddingVertical: 5
   },
   thumbnail: {
     borderRadius: 15,
