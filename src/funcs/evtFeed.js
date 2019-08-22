@@ -14,7 +14,6 @@ exports.FetchEvts = async (LastEvaluatedKey) => {
     } else {
       apiResponse = await API.get(apiName, apiPath + '/feed/' + uid)
     }
-    console.log(JSON.stringify(apiResponse))
     newEvents = apiResponse.data.Items
     // checks if there are new items
     if(newEvents.length > 0){
@@ -33,7 +32,6 @@ exports.FetchEvts = async (LastEvaluatedKey) => {
       // console.log('finishedData: ' + JSON.stringify(finishedData))
       return finishedData
     } else {
-      console.log('THERE IS NOT DATA ' + JSON.stringify(apiResponse.data))
       return null
     }
   } catch (e) {
@@ -51,7 +49,6 @@ exports.GetCatFeed = async (LastEvaluatedKey) => {
     } else {
       apiResponse = await API.get(apiName, apiPath + '/evtFeed/cat/SPORTS')
     }
-    console.log(JSON.stringify(apiResponse))
     newEvents = apiResponse.data.Items
     // checks if there are new items
     if(newEvents.length > 0){
@@ -62,7 +59,6 @@ exports.GetCatFeed = async (LastEvaluatedKey) => {
       // console.log('finishedData: ' + JSON.stringify(finishedData))
       return finishedData
     } else {
-      console.log('THERE IS NOT DATA ' + JSON.stringify(apiResponse.data))
       return null
     }
   } catch (e) {
@@ -80,7 +76,6 @@ exports.GetProEvtFeed = async (pid, LastEvaluatedProEvtKey) => {
     } else {
       apiResponse = await API.get(apiName, apiPath + '/evtFeed/profile/' + uid)
     }
-    console.log(JSON.stringify(apiResponse))
     newEvents = apiResponse.data.Items
     // checks if there are new items
     if(newEvents.length > 0){
@@ -91,7 +86,6 @@ exports.GetProEvtFeed = async (pid, LastEvaluatedProEvtKey) => {
       // console.log('finishedData: ' + JSON.stringify(finishedData))
       return finishedData
     } else {
-      console.log('THERE IS NOT DATA ' + JSON.stringify(apiResponse.data))
       return null
     }
   } catch (e) {

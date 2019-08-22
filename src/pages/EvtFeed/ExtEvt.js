@@ -54,7 +54,8 @@ class ExtEvt extends Component {
               height: GLOBALS.extEvtHeight,
               width: GLOBALS.extEvtWidth,
               marginVertical: 10,
-              backgroundColor: GLOBALS.lightGrey
+              backgroundColor: GLOBALS.lightGrey,
+              borderRadius: 15
             }}
             >
             <View>

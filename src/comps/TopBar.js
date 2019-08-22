@@ -97,6 +97,20 @@ class TopBar extends Component {
             </TouchableOpacity>
           )
           break;
+        case 'REVERSE':
+          return (
+
+            <TouchableOpacity
+              onPress={() => this.handlePress(side)}
+              style={{
+                margin: 5,
+                marginHorizontal: 10
+              }}
+              >
+              <Ionicons name={'ios-reverse-camera'} size={35} color={GLOBALS.white}/>
+            </TouchableOpacity>
+          )
+          break;
         case 'UPLOAD':
           return (
             <TouchableOpacity

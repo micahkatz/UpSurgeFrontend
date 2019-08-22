@@ -33,11 +33,15 @@ exports.PickVid = async () => {
   return video
 }
 
-exports.UploadVid = async (video, sid) => {
-  let uri = video.path
+exports.UploadVid = async (uri, sid, ext) => {
   const response = await fetch(uri)
   const blob = await response.blob()
-  Storage.put(sid + '.mp4', blob, {
-    contentType: video.mime
+  Storage.put(sid + '.' + ext, blob, {
+    contentType: 'video/' + ext
   })
+}
+exports.GetExt = (fileName) => {
+  var re = /(?:\.([^.]+))?$/;
+  var ext = re.exec(fileName)[1];
+  return ext
 }

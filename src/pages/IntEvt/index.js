@@ -110,7 +110,7 @@ class IntEvt extends Component {
               </View>
               <TouchableOpacity
                 style={STYLES.button}
-                onPress={() => NewSub(item.eid)}
+                onPress={() => this.props.navigation.push('NewSub', {eid: item.eid})}
                 >
                 <Text
                   style={{
@@ -139,8 +139,8 @@ class IntEvt extends Component {
         <TagFeed
           data={item.tags}
           style={{
-            alignSelf: 'center',
-            height: 80
+            height: 80,
+            paddingLeft: 5
           }}
           />
         <View

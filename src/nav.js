@@ -11,6 +11,7 @@ import IntEvtScreen from './pages/IntEvt'
 import ProfileScreen from './pages/Profile'
 import MyProfileScreen from './pages/MyProfile'
 import NewEvtPg from './pages/NewEvt'
+import NewSubScreen from './pages/NewSub'
 import PickCatPg from './pages/PickCat'
 import {
   createFluidNavigator,
@@ -31,7 +32,8 @@ const AppNavigator = createStackNavigator({
   Main: EvtStack,
   NewEvt: NewEvtPg,
   PickCats: PickCatPg,
-  MyProfile: MyProfileScreen
+  MyProfile: MyProfileScreen,
+  NewSub: NewSubScreen
 },
 {
   headerMode: 'none',

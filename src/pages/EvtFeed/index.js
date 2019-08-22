@@ -1,5 +1,5 @@
 /*
-  EvtFeed.js contains the Feed of EVENTS in a FlatList
+EvtFeed.js contains the Feed of EVENTS in a FlatList
 */
 import React, { Component } from 'react';
 import {
@@ -9,9 +9,10 @@ import {
   Image,
   FlatList,
   Button,
-  SafeAreaView,
   ActivityIndicator,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView
 } from 'react-native';
 import ExtEvt from './ExtEvt';
 import {GLOBALS} from 'src/globals'
@@ -32,7 +33,8 @@ export default class EvtFeed extends Component {
       refreshing: false, // to show when the client refreshes the feed
       loading: true, // to show loading at the first render
       loadingMore: false, // to show when the client is fetching more data
-      noneLeft: false // if there are no more evts to render
+      noneLeft: false, // if there are no more evts to render
+      headerHeight: GLOBALS.headerHeight
     }
   }
 
@@ -44,7 +46,8 @@ export default class EvtFeed extends Component {
     this.setState({
       evtList: [],
       noneLeft: false,
-      refreshing: true
+      refreshing: true,
+      headerHeight: GLOBALS.headerHeight
     })
     try {
       returnedData = await FetchEvts()
@@ -125,66 +128,75 @@ export default class EvtFeed extends Component {
   render() {
     return (
       <View>
-        <FlatList
-          contentContainerStyle={{
-            alignItems: 'center'
-          }}
-          style={{
-            paddingTop: GLOBALS.headerHeight
-          }}
-          data={this.state.evtList}
-          keyExtractor = {(item, index) => item.eid}
-          renderItem={({item, index}) => {
-            return (
-              <ExtEvt item={item} navigation={this.props.navigation}/>
-            )
-          }}
-          refreshing={this.state.refreshing}
-          showsHorizontalScrollIndicator={false}
-          automaticallyAdjustContentInsets={false}
-          bouncesZoom={true}
-          decelerationRate={true}
-          onRefresh={this.handleRefresh.bind(this)}
-          onEndReached={this.handleBottomReached.bind(this)}
-          ListHeaderComponent={() => {
-            if(this.state.loading){
-              return (
-                <View style={{
-                    flex: 1,
-                    height: GLOBALS.screenHeight - 130,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-
-                </View>
-              )
-            } else if (this.state.evtList.length > 0){
-              return (
-                <View/>
-              )
-            } else {
-              return (
-                <View>
-                  <NothingYet text={'Nothing to Show'}/>
-                </View>
-              )
-            }
-          }}
-          ListFooterComponent={() => {
-            if(this.state.loadingMore == true){
-              return(
-                <View style={{margin: 10}}>
-                  <ActivityIndicator size="small" />
-                </View>
-              )
-            } else {
-              return (
-                <View/>
-              )
-            }
-          }}
+        <SafeAreaView
           >
-        </FlatList>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            >
+            <FlatList
+              contentContainerStyle={{
+                alignItems: 'center'
+              }}
+              style={{
+                marginTop: this.state.headerHeight,
+                minHeight: GLOBALS.screenHeight - GLOBALS.headerHeight
+              }}
+              data={this.state.evtList}
+              keyExtractor = {(item, index) => item.eid}
+              renderItem={({item, index}) => {
+                return (
+                  <ExtEvt item={item} navigation={this.props.navigation}/>
+                )
+              }}
+              refreshing={this.state.refreshing}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator
+              automaticallyAdjustContentInsets={false}
+              bouncesZoom={true}
+              decelerationRate={true}
+              onRefresh={this.handleRefresh.bind(this)}
+              onEndReached={this.handleBottomReached.bind(this)}
+              ListHeaderComponent={() => {
+                if(this.state.loading){
+                  return (
+                    <View style={{
+                        flex: 1,
+                        height: GLOBALS.screenHeight - 130,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+
+                    </View>
+                  )
+                } else if (this.state.evtList.length > 0){
+                  return (
+                    <View/>
+                  )
+                } else {
+                  return (
+                    <View>
+                      <NothingYet text={'Nothing to Show'}/>
+                    </View>
+                  )
+                }
+              }}
+              ListFooterComponent={() => {
+                if(this.state.loadingMore == true){
+                  return(
+                    <View style={{margin: 10}}>
+                      <ActivityIndicator size="small" />
+                    </View>
+                  )
+                } else {
+                  return (
+                    <View/>
+                  )
+                }
+              }}
+              />
+          </ScrollView>
+        </SafeAreaView>
         <TopBar
           left={'PROFILE'}
           right={'POST'}

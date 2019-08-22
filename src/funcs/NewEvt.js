@@ -15,7 +15,8 @@ exports.NewActEvt = async (evtData, imgPath, imgMime, tags) => {
       ts: new Date(), // calculates the seconds
       uid: await GetUID(), // retrieves User Id from storage
       tags: evtData.tags, // TODO: the user inputs their categories
-      evtType: 'ACT'
+      evtType: 'ACT',
+      numSubs: 0
     }
   }
 

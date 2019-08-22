@@ -10,7 +10,8 @@ import {
   ScrollView,
   Image,
   SafeAreaView,
-  FlatList
+  FlatList,
+  KeyboardAvoidingView
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -120,108 +121,115 @@ export default class NewEvt extends Component {
     }
 
     return (
-      <View>
-        <TopBar
-          left={'CLOSE'}
-          leftPress={this.props.navigation.pop}
-          right={'UPLOAD'}
-          rightPress={() => {
-            if(this.validate()){
-              let tags = this.state.subCats.map(item => item.title);
-              NewActEvt({
-                title: this.state.title,
-                desc: this.state.desc,
-                tags
-              },this.state.imgPath, this.state.imgMime)
-              .then(this.props.navigation.pop)
-            }
-          }}
-          />
-        <View style={{
-            flexDirection: 'row',
-            alignItems: 'flex-start'
-          }}>
-          <View style={{
-              flex: 1,
-              alignItems: 'flex-end'
-            }}>
-            <TouchableOpacity
-              onPress={() => {
-                  PickImg().then((image) => {
-                    this.setState({
-                      imgMime: image.mime,
-                      imgPath: image.path
-                    })
-                  })
+      <ScrollView
+        keyboardDismissMode={'on-drag'}
+        >
+          <KeyboardAvoidingView
+            style={styles.content}
+            behavior={'position'}
+            >
+            <TopBar
+              left={'CLOSE'}
+              leftPress={this.props.navigation.pop}
+              right={'UPLOAD'}
+              rightPress={() => {
+                if(this.validate()){
+                  let tags = this.state.subCats.map(item => item.title);
+                  NewActEvt({
+                    title: this.state.title,
+                    desc: this.state.desc,
+                    tags
+                  },this.state.imgPath, this.state.imgMime)
+                  .then(this.props.navigation.pop)
+                }
               }}
-              style={[styles.thumbnail, {
-                marginHorizontal: 20
-              }]}
-              >
-              {renderThumbnail()}
-              <View style={[styles.thumbnail,{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'absolute',
-                  opacity: (this.state.imgPath) ? 0 : 1
-                }]}>
-                <MaterialIcons
-                  name={'add-a-photo'}
-                  size={50}
-                  color={GLOBALS.grey}
-                  />
+              />
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'flex-start'
+              }}>
+              <View style={{
+                  flex: 1,
+                  alignItems: 'flex-end'
+                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    PickImg().then((image) => {
+                      this.setState({
+                        imgMime: image.mime,
+                        imgPath: image.path
+                      })
+                    })
+                  }}
+                  style={[styles.thumbnail, {
+                    marginHorizontal: 20
+                  }]}
+                  >
+                  {renderThumbnail()}
+                  <View style={[styles.thumbnail,{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      position: 'absolute',
+                      opacity: (this.state.imgPath) ? 0 : 1
+                    }]}>
+                    <MaterialIcons
+                      name={'add-a-photo'}
+                      size={50}
+                      color={GLOBALS.grey}
+                      />
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text
-          style={{
-            color: GLOBALS.red,
-            fontFamily: 'HelveticaNeue',
-            alignSelf: 'center'
-          }}
-          >
-          {this.state.alert}
-        </Text>
-        <TextInput
+            </View>
+            <Text
+              style={{
+                color: GLOBALS.red,
+                fontFamily: 'HelveticaNeue',
+                alignSelf: 'center'
+              }}
+              >
+              {this.state.alert}
+            </Text>
+            <TextInput
 
-          placeholder={'Title'}
-          maxLength={200}
-          style={styles.textInput}
-          placeholderTextColor={GLOBALS.grey}
-          onChangeText={(title) => {
-            this.setState({title})
-          }}
-          autoCorrect={false}
-          selectionColor={GLOBALS.black}
-          clearButtonMode={'while-editing'}
-          multiline={false}
-          ref={ input => {
-            this.inputs['title'] = input;
-          }}
-          returnKeyType={ "next" }
-          onSubmitEditing={() => this.inputs['desc'].focus()}
-          />
-        <TextInput
+              placeholder={'Title'}
+              maxLength={200}
+              style={styles.textInput}
+              placeholderTextColor={GLOBALS.grey}
+              onChangeText={(title) => {
+                this.setState({title})
+              }}
+              autoCorrect={false}
+              selectionColor={GLOBALS.black}
+              clearButtonMode={'while-editing'}
+              multiline={false}
+              ref={ input => {
+                this.inputs['title'] = input;
+              }}
+              returnKeyType={ "next" }
+              onSubmitEditing={() => this.inputs['desc'].focus()}
+              />
+            <TextInput
 
-          placeholder={'Add a description'}
-          maxLength={200}
-          style={styles.textInput}
-          placeholderTextColor={GLOBALS.grey}
-          onChangeText={(desc) => {
-            this.setState({desc})
-          }}
-          autoCorrect={false}
-          selectionColor={GLOBALS.black}
-          clearButtonMode={'while-editing'}
-          multiline
-          ref={ input => {
-            this.inputs['desc'] = input;
-          }}
-          returnKeyType={ "next" }
-          />
+              placeholder={'Add a description'}
+              maxLength={200}
+              style={styles.textInput}
+              placeholderTextColor={GLOBALS.grey}
+              onChangeText={(desc) => {
+                this.setState({desc})
+              }}
+              autoCorrect={false}
+              selectionColor={GLOBALS.black}
+              clearButtonMode={'while-editing'}
+              multiline
+              ref={ input => {
+                this.inputs['desc'] = input;
+              }}
+              returnKeyType={ "next" }
+              />
+          </KeyboardAvoidingView>
         {renderSubCats()}
-      </View>
+      </ScrollView>
     );
   }
 }
