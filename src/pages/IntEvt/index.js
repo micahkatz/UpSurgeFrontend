@@ -17,17 +17,26 @@ import {
 import {GLOBALS} from 'src/globals'
 import {STYLES} from 'src/styles'
 import {FadeIn, FadeOut} from 'src/animations'
-import CloseButton from 'src/comps/CloseButton'
+import {CloseButton} from 'src/buttons/closeButton'
 import EvtSubFeed from './EvtSubFeed';
 import {GetIMG} from 'src/funcs/media'
 import {NewSub} from 'src/funcs/NewSub'
 import Gradient from 'src/comps/Gradient'
 import TopBar from 'src/comps/TopBar'
 import TagFeed from 'src/comps/TagFeed'
-import {
-  Transition
-} from 'react-navigation-fluid-transitions';
+import {BackButton} from 'src/buttons/backButton'
 class IntEvt extends Component {
+  static navigationOptions = ({ navigation }) =>  {
+    return {
+      headerTransparent: true,
+      headerLeft: (
+        <BackButton
+          onPress={() => navigation.goBack()}
+          title={'Button'}
+          />
+      ),
+    }
+  }
   constructor(props){
     super(props)
     this.state = {
@@ -51,26 +60,22 @@ class IntEvt extends Component {
         }
         >
         <View>
-          <Transition shared={item.eid}>
-            <Image
-              style={{ height: GLOBALS.extEvtHeight / 2, width: GLOBALS.screenWidth}}
-              source={{ uri: imgUri}}
-              />
-          </Transition>
+          <Image
+            style={{ height: GLOBALS.extEvtHeight / 2, width: GLOBALS.screenWidth}}
+            source={{ uri: imgUri}}
+            />
           <View style={{
               width: GLOBALS.extEvtWidth,
               height: 100,
               bottom: 0,
               position: 'absolute'
             }}>
-            <Transition shared={item.eid + '-gradient'}>
-              <Gradient
-                style={{
-                  width: GLOBALS.screenWidth,
-                  height: 100
-                }}
-                />
-            </Transition>
+            <Gradient
+              style={{
+                width: GLOBALS.screenWidth,
+                height: 100
+              }}
+              />
           </View>
 
           <View
@@ -89,24 +94,20 @@ class IntEvt extends Component {
               }}
               >
               <View>
-                <Transition shared={item.eid + '-title'}>
-                  <Text
-                    style={STYLES.evtTitle}
-                    >
-                    {item.title.toUpperCase()}
-                  </Text>
-                </Transition>
-                <Transition appear={FadeIn}>
-                  <Text
-                    style={{
-                      color: '#e2e2e2',
-                      fontSize: 16,
-                      fontWeight: 'bold'
-                    }}
-                    >
-                    {item.numSubs} {(item.numSubs == 1) ? 'Post' : 'Posts'}
-                  </Text>
-                </Transition>
+                <Text
+                  style={STYLES.evtTitle}
+                  >
+                  {item.title.toUpperCase()}
+                </Text>
+                <Text
+                  style={{
+                    color: '#e2e2e2',
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                  }}
+                  >
+                  {item.numSubs} {(item.numSubs == 1) ? 'Post' : 'Posts'}
+                </Text>
               </View>
               <TouchableOpacity
                 style={STYLES.button}
@@ -176,13 +177,6 @@ class IntEvt extends Component {
         <EvtSubFeed
           eid={item.eid}
           onRef={ref => (this.evtsubfeed = ref)}
-          />
-        <TopBar
-          left={'CLOSE'}
-          leftPress={this.props.navigation.pop}
-          style={{
-            position: 'absolute'
-          }}
           />
       </ScrollView>
     );

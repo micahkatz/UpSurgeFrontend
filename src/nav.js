@@ -13,17 +13,13 @@ import MyProfileScreen from './pages/MyProfile'
 import NewEvtPg from './pages/NewEvt'
 import NewSubScreen from './pages/NewSub'
 import PickCatPg from './pages/PickCat'
-import {
-  createFluidNavigator,
-  Transition
-} from 'react-navigation-fluid-transitions';
 
 // EvtStack is the Second-Layer navigator for the app
-const EvtStack = createFluidNavigator({
+const EvtStack = createStackNavigator({
   Home: EvtFeedScreen,
   IntEvt: IntEvtScreen,
   Profile: ProfileScreen
-},
+}
 );
 
 

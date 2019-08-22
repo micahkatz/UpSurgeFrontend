@@ -16,9 +16,6 @@ import ExtSub from 'src/comps/ExtSub';
 import {GLOBALS} from 'src/globals'
 import {GetEvtSubs} from 'src/funcs/subFeed'
 import NothingYet from 'src/comps/nothingYet'
-import {
-  Transition
-} from 'react-navigation-fluid-transitions';
 
 
 export default class EvtSubFeed extends Component {

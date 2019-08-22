@@ -18,13 +18,33 @@ import ExtEvt from './ExtEvt';
 import {GLOBALS} from 'src/globals'
 import NothingYet from 'src/comps/nothingYet'
 import {FetchEvts} from 'src/funcs/evtFeed'
-import {
-  Transition
-} from 'react-navigation-fluid-transitions';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import TopBar from 'src/comps/TopBar'
+import {ProfileButton, NewEvt} from 'src/buttons/evtFeedBtns'
+import PageTitle from 'src/comps/pageTitle'
 
 export default class EvtFeed extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: <PageTitle>Home</PageTitle>,
+      headerLeft: (
+        <ProfileButton
+          onPress={() => navigation.navigate('Profile')}
+          title={'Button'}
+        />
+      ),
+      headerRight: (
+        <NewEvt
+          onPress={() => navigation.navigate('NewEvt')}
+          title={'Button'}
+        />
+      ),
+      headerStyle: {
+        borderBottomWidth: 0,
+        paddingBottom: 5
+      }
+    };
+  };
   constructor(props){
     super(props)
     this.state = {
@@ -128,85 +148,61 @@ export default class EvtFeed extends Component {
   render() {
     return (
       <View>
-        <SafeAreaView
-          >
-          <ScrollView
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            >
-            <FlatList
-              contentContainerStyle={{
-                alignItems: 'center'
-              }}
-              style={{
-                marginTop: this.state.headerHeight,
-                minHeight: GLOBALS.screenHeight - GLOBALS.headerHeight
-              }}
-              data={this.state.evtList}
-              keyExtractor = {(item, index) => item.eid}
-              renderItem={({item, index}) => {
-                return (
-                  <ExtEvt item={item} navigation={this.props.navigation}/>
-                )
-              }}
-              refreshing={this.state.refreshing}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator
-              automaticallyAdjustContentInsets={false}
-              bouncesZoom={true}
-              decelerationRate={true}
-              onRefresh={this.handleRefresh.bind(this)}
-              onEndReached={this.handleBottomReached.bind(this)}
-              ListHeaderComponent={() => {
-                if(this.state.loading){
-                  return (
-                    <View style={{
-                        flex: 1,
-                        height: GLOBALS.screenHeight - 130,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
+        <FlatList
+          contentContainerStyle={{
+            alignItems: 'center'
+          }}
+          data={this.state.evtList}
+          keyExtractor = {(item, index) => item.eid}
+          renderItem={({item, index}) => {
+            return (
+              <ExtEvt item={item} navigation={this.props.navigation}/>
+            )
+          }}
+          refreshing={this.state.refreshing}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator
+          automaticallyAdjustContentInsets={false}
+          bouncesZoom={true}
+          decelerationRate={true}
+          onRefresh={this.handleRefresh.bind(this)}
+          onEndReached={this.handleBottomReached.bind(this)}
+          ListHeaderComponent={() => {
+            if(this.state.loading){
+              return (
+                <View style={{
+                    flex: 1,
+                    height: GLOBALS.screenHeight - 130,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
 
-                    </View>
-                  )
-                } else if (this.state.evtList.length > 0){
-                  return (
-                    <View/>
-                  )
-                } else {
-                  return (
-                    <View>
-                      <NothingYet text={'Nothing to Show'}/>
-                    </View>
-                  )
-                }
-              }}
-              ListFooterComponent={() => {
-                if(this.state.loadingMore == true){
-                  return(
-                    <View style={{margin: 10}}>
-                      <ActivityIndicator size="small" />
-                    </View>
-                  )
-                } else {
-                  return (
-                    <View/>
-                  )
-                }
-              }}
-              />
-          </ScrollView>
-        </SafeAreaView>
-        <TopBar
-          left={'PROFILE'}
-          right={'POST'}
-          leftPress={() => this.props.navigation.push('MyProfile')}
-          rightPress={() => this.props.navigation.push('NewEvt')}
-          title={'Home'}
-          blur
-          style={{
-            position: 'absolute',
-            top: 0
+                </View>
+              )
+            } else if (this.state.evtList.length > 0){
+              return (
+                <View/>
+              )
+            } else {
+              return (
+                <View>
+                  <NothingYet text={'Nothing to Show'}/>
+                </View>
+              )
+            }
+          }}
+          ListFooterComponent={() => {
+            if(this.state.loadingMore == true){
+              return(
+                <View style={{margin: 10}}>
+                  <ActivityIndicator size="small" />
+                </View>
+              )
+            } else {
+              return (
+                <View/>
+              )
+            }
           }}
           />
       </View>

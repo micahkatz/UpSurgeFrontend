@@ -40,7 +40,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>We need your permission to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need your permission to use your microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>

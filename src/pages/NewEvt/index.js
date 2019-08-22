@@ -20,7 +20,7 @@ import CropImg from 'react-native-image-crop-picker';
 import {GLOBALS} from 'src/globals'
 import {PickImg} from 'src/funcs/media'
 import {NewActEvt} from 'src/funcs/NewEvt'
-import CloseButton from 'src/comps/CloseButton'
+import {CloseButton} from 'src/buttons/closeButton'
 import TopBar from 'src/comps/TopBar';
 import TagFeed from 'src/comps/TagFeed'
 

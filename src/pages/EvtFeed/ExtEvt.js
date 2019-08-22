@@ -17,9 +17,6 @@ import {GetIMG} from 'src/funcs/media'
 import {getTimestamp} from 'src/funcs/common'
 import { BlurView } from "@react-native-community/blur";
 import Gradient from 'src/comps/Gradient'
-import {
-  Transition
-} from 'react-navigation-fluid-transitions';
 class ExtEvt extends Component {
   constructor(props){
     super(props)
@@ -55,20 +52,18 @@ class ExtEvt extends Component {
               width: GLOBALS.extEvtWidth,
               marginVertical: 10,
               backgroundColor: GLOBALS.lightGrey,
-              borderRadius: 15
+              borderRadius: 15,
+              overflow: 'hidden'
             }}
             >
             <View>
-              <Transition shared={this.props.item.eid}>
-                <Image
-                  style={{
-                    height: GLOBALS.extEvtHeight,
-                    width: GLOBALS.extEvtWidth,
-                    borderRadius: 15
-                  }}
-                  source={{ uri: this.state.imgUri}}
-                  />
-              </Transition>
+              <Image
+                style={{
+                  height: GLOBALS.extEvtHeight,
+                  width: GLOBALS.extEvtWidth
+                }}
+                source={{ uri: this.state.imgUri}}
+                />
               <View
                 style={{
                   position: 'absolute',
@@ -82,80 +77,74 @@ class ExtEvt extends Component {
                       height: 100,
                       position: 'absolute'
                     }}>
-                    <Transition shared={this.props.item.eid + '-gradient'}>
-                      <Gradient
-                        style={{
-                          width: GLOBALS.extEvtWidth,
-                          height: 100
-                        }}
-                        />
-                    </Transition>
+                    <Gradient
+                      style={{
+                        width: GLOBALS.extEvtWidth,
+                        height: 100
+                      }}
+                      />
                   </View>
-                  <Transition shared={this.props.item.eid + '-title'}>
-                    <Text
-                      style={[
-                        STYLES.evtTitle,
-                        {margin: 10}
-                      ]}
-                      >
-                      {this.props.item.title.toUpperCase()}
-                    </Text>
-                  </Transition>
+                  <Text
+                    style={[
+                      STYLES.evtTitle,
+                      {margin: 10}
+                    ]}
+                    >
+                    {this.props.item.title.toUpperCase()}
+                  </Text>
                 </View>
                 <View
                   style={{
                     width: GLOBALS.extEvtWidth
                   }}
                   >
-                  <Transition appear={FadeIn} disappear={FadeOut}>
-                    <BlurView
+                  <BlurView
+                    style={{
+                      width: GLOBALS.extEvtWidth,
+                      borderBottomLeftRadius:15,
+                      borderBottomRightRadius:15,
+                    }}
+                    blurType="xlight"
+                    blurAmount={50}
+                    >
+                    <View
                       style={{
-                        width: GLOBALS.extEvtWidth,
-                        borderBottomLeftRadius:15,
-                        borderBottomRightRadius:15,
-                      }}
-                      blurType="xlight"
-                      blurAmount={50}
-                      >
-                      <View
-                        style={{
-                          padding: 15,
-                          paddingVertical: 20,
-                          flexDirection: 'row',
-                          alignItems: 'center'
+                        padding: 15,
+                        paddingVertical: 20,
+                        flexDirection: 'row',
+                        alignItems: 'center'
 
+                      }}
+                      >
+                      <Image
+                        style={{
+                          height: 20,
+                          width: 20,
+                          margin: 10
                         }}
-                        >
-                        <Image
+                        source={{uri: 'ActEvt'}}
+                        />
+                      <View>
+                        <Text
                           style={{
-                            height: 20,
-                            width: 20,
-                            margin: 10
+                            color: GLOBALS.darkGrey,
+                            fontSize: 16,
+                            fontWeight: 'bold'
                           }}
-                          source={{uri: 'ActEvt'}}
-                          />
-                        <View>
-                          <Text
-                            style={{
-                              color: GLOBALS.darkGrey,
-                              fontSize: 16,
-                              fontWeight: 'bold'
-                            }}
-                            >
-                            {this.props.item.numSubs} {(this.props.item.numSubs == 1) ? 'Post' : 'Posts'}
-                          </Text>
-                          <Text
-                            style={{
-                              color: '#6a6a6a',
-                              fontSize: 16
-                            }}
-                            >
-                            {getTimestamp(this.props.item.ts)}
-                          </Text>
-                        </View>
+                          >
+                          {this.props.item.numSubs} {(this.props.item.numSubs == 1) ? 'Post' : 'Posts'}
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#6a6a6a',
+                            fontSize: 16
+                          }}
+                          >
+                          {getTimestamp(this.props.item.ts)}
+                        </Text>
                       </View>
-                    </BlurView>
-                  </Transition>
+                    </View>
+                  </BlurView>
                 </View>
               </View>
             </View>

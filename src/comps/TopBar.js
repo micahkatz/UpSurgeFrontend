@@ -23,12 +23,9 @@ import {STYLES} from '../styles'
 import {FadeIn, FadeOut} from '../animations'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import CloseButton from './CloseButton'
+import {CloseButton} from '../buttons/closeButton'
 import { BlurView } from "@react-native-community/blur";
 var iconColor = GLOBALS.grey
-import {
-  Transition
-} from 'react-navigation-fluid-transitions';
 
 class TopBar extends Component {
   handlePress(side){
@@ -59,28 +56,6 @@ class TopBar extends Component {
         case 'CLOSE':
           return (
             <CloseButton onPress={() => this.handlePress(side)}/>
-          )
-          break;
-        case 'PROFILE':
-          return (
-            <TouchableOpacity
-              onPress={() => this.handlePress(side)}
-              style={{
-                margin: 5,
-                marginHorizontal: 10
-              }}
-              >
-              <View
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 40 /2,
-                  backgroundColor: GLOBALS.grey,
-                  margin: 5,
-                  marginHorizontal: 10
-                }}
-                />
-            </TouchableOpacity>
           )
           break;
         case 'PLUS':
@@ -135,31 +110,6 @@ class TopBar extends Component {
             </TouchableOpacity>
           )
           break;
-        case 'POST':
-          return (
-
-            <TouchableOpacity
-              onPress={() => this.handlePress(side)}
-              style={{
-                margin: 5,
-                marginHorizontal: 10
-              }}
-              >
-              <View
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 40 /2,
-                  backgroundColor: GLOBALS.lightGrey,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                >
-                <AntDesign name={'form'} size={20} color={'black'}/>
-              </View>
-            </TouchableOpacity>
-          )
-          break;
         case 'CHECK':
           return (
 
@@ -201,62 +151,20 @@ class TopBar extends Component {
     }
     if(this.props.blur){
       return (
-        <Transition appear={FadeIn} disappear={FadeOut}>
-          <BlurView
-            style={[
-              this.props.style,
-              {width: GLOBALS.screenWidth}
-            ]}
-            blurType="xlight"
-            blurAmount={70}
-            onLayout={(event) => {
-              var {x, y, width, height} = event.nativeEvent.layout;
-              GLOBALS.headerHeight = height
-            }}
-            >
-            <SafeAreaView
-              style={[
-                {
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  width: GLOBALS.screenWidth
-                }
-              ]}
-              >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                >
-                <View
-                  style={[
-                    styles.buttonWrapper,
-                    {marginHorizontal: 12}
-                  ]}
-                  >
-                  {renderButton('LEFT')}
-                </View>
-                {renderTitle()}
-              </View>
-              <View
-                style={styles.buttonWrapper}
-                >
-                {renderButton('RIGHT')}
-              </View>
-
-            </SafeAreaView>
-          </BlurView>
-        </Transition>
-      );
-    } else {
-      return (
-        <Transition appear={FadeIn} disappear={FadeOut}>
+        <BlurView
+          style={[
+            this.props.style,
+            {width: GLOBALS.screenWidth}
+          ]}
+          blurType="xlight"
+          blurAmount={70}
+          onLayout={(event) => {
+            var {x, y, width, height} = event.nativeEvent.layout;
+            GLOBALS.headerHeight = height
+          }}
+          >
           <SafeAreaView
             style={[
-              this.props.style,
               {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -264,10 +172,6 @@ class TopBar extends Component {
                 width: GLOBALS.screenWidth
               }
             ]}
-            onLayout={(event) => {
-              var {x, y, width, height} = event.nativeEvent.layout;
-              GLOBALS.headerHeight = height
-            }}
             >
             <View
               style={{
@@ -293,7 +197,49 @@ class TopBar extends Component {
             </View>
 
           </SafeAreaView>
-        </Transition>
+        </BlurView>
+      );
+    } else {
+      return (
+        <SafeAreaView
+          style={[
+            this.props.style,
+            {
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: GLOBALS.screenWidth
+            }
+          ]}
+          onLayout={(event) => {
+            var {x, y, width, height} = event.nativeEvent.layout;
+            GLOBALS.headerHeight = height
+          }}
+          >
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            >
+            <View
+              style={[
+                styles.buttonWrapper,
+                {marginHorizontal: 12}
+              ]}
+              >
+              {renderButton('LEFT')}
+            </View>
+            {renderTitle()}
+          </View>
+          <View
+            style={styles.buttonWrapper}
+            >
+            {renderButton('RIGHT')}
+          </View>
+
+        </SafeAreaView>
       );
     }
   }

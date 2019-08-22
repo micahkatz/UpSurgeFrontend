@@ -14,9 +14,6 @@ import {GLOBALS} from '../globals'
 import {GetIMG} from '../funcs/media'
 import {getTimestamp} from '../funcs/common'
 import { BlurView } from "@react-native-community/blur";
-import {
-  Transition
-} from 'react-navigation-fluid-transitions';
 export default class ExtSub extends Component {
   constructor(props){
     super(props)

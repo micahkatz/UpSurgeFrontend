@@ -9,11 +9,8 @@ import {
   ScrollView
 } from 'react-native';
 import {GLOBALS} from 'src/globals'
-import CloseButton from 'src/comps/CloseButton'
+import {CloseButton} from 'src/buttons/closeButton'
 import {GetIMG} from 'src/funcs/media'
-import {
-  Transition
-} from 'react-navigation-fluid-transitions';
 import TopBar from 'src/comps/TopBar'
 
 export default class MyProfile extends Component {

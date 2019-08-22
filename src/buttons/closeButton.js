@@ -9,22 +9,22 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { VibrancyView, BlurView } from "@react-native-community/blur";
 
 let bDiameter = 35
-class CloseButton extends Component {
-  render() {
-    return (
-      <TouchableOpacity
-        onPress={this.props.onPress}
-        style={styles.container}>
-        <BlurView blurType="dark" blurAmount={20} style={styles.vibrancy}>
-          <Ionicons size={bDiameter} name={'ios-close'} color={'white'}
-            style={{
-              height: bDiameter
-            }}
-            />
-        </BlurView>
-      </TouchableOpacity>
-    );
-  }
+exports.CloseButton = (props) => {
+
+  return (
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={styles.container}>
+      <BlurView blurType="dark" blurAmount={20} style={styles.vibrancy}>
+        <Ionicons size={bDiameter} name={'ios-close'} color={'white'}
+          style={{
+            height: bDiameter
+          }}
+          />
+      </BlurView>
+    </TouchableOpacity>
+  );
+
 }
 
 const styles = StyleSheet.create({
@@ -36,5 +36,3 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
-
-module.exports = CloseButton;
